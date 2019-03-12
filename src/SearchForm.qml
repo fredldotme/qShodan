@@ -39,27 +39,42 @@ Page {
         }
 
         ListView {
-            Layout.preferredWidth: parent.width - 64
+            width: parent.width
             Layout.preferredHeight: parent.height - 64
             clip: true
+            ScrollBar.vertical: ScrollBar {}
 
             id: foundHostsList
             model: shodanHost.hosts
             spacing: 10
             delegate: Column {
-                property string service : foundHostsList.model[index].ip + ":" +
-                                          foundHostsList.model[index].port
+                width: parent.width
+                height: implicitHeight
+
                 Label {
-                    text: foundHostsList.model[index].asn
+                    function getTitle(obj) {
+                        if (obj.http === undefined || obj.http === null)
+                            return qsTr("Untitled")
+                        else
+                            return obj.http.title
+                    }
+
+                    text: getTitle(foundHostsList.model[index])
                     font.pixelSize: Qt.application.font.pixelSize * 1.8
+                }
+                Label {
+                    property string service : foundHostsList.model[index].ip + ":" +
+                                              foundHostsList.model[index].port
+
+                    text: "Service: " + service
+                    font.pixelSize: Qt.application.font.pixelSize * 1.2
                 }
                 Label {
                     text: "ISP: " + foundHostsList.model[index].isp
                     font.pixelSize: Qt.application.font.pixelSize * 1.2
                 }
-                Label {
-                    text: "Service: " + service
-                    font.pixelSize: Qt.application.font.pixelSize * 1.2
+                MenuSeparator {
+                    width: parent.width
                 }
             }
         }

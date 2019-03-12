@@ -50,6 +50,8 @@ void ShodanHost::responseReceivedHandler()
     for (const QJsonValue match : matches) {
         const QJsonObject matchObject = match.toObject();
 
+        qDebug() << "match: " << match;
+
         const QString ip_str = matchObject.value("ip_str").toString();
         const int port = matchObject.value("port").toInt();
         const QString isp = matchObject.value("isp").toString();
@@ -57,6 +59,11 @@ void ShodanHost::responseReceivedHandler()
         const QString data = matchObject.value("data").toString();
 
         QVariantMap host;
+        if (matchObject.contains("http")) {
+            const QJsonObject http = matchObject.value("http").toObject();
+            host.insert("http", http.toVariantMap());
+        }
+
         host.insert("data", data);
         host.insert("ip", ip_str);
         host.insert("port", port);
@@ -65,7 +72,6 @@ void ShodanHost::responseReceivedHandler()
         foundHosts.append(host);
     }
 
-    //qDebug() << "hosts: " << foundHosts;
     this->m_hosts = foundHosts;
     emit hostsChanged();
 }

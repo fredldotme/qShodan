@@ -92,6 +92,7 @@ Page {
             Button {
                 text: qsTr("Ok")
                 width: (parent.width/3)
+                enabled: keyField.text.length == 32
                 onClicked: assertFoundKey(keyField.text)
             }
         }
