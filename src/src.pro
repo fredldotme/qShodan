@@ -1,4 +1,4 @@
-TARGET = qShodan
+TARGET = qshodan
 QT += quick multimedia network
 CONFIG += c++11 qzxing_qml qzxing_multimedia
 

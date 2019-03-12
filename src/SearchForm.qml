@@ -53,10 +53,14 @@ Page {
 
                 Label {
                     function getTitle(obj) {
-                        if (obj.http === undefined || obj.http === null)
+                        if (obj.http === undefined || obj.http === null) {
                             return qsTr("Untitled")
-                        else
-                            return obj.http.title
+                        } else {
+                            if (obj.http.title)
+                                return obj.http.title
+                            else
+                                return qsTr("Untitled")
+                        }
                     }
 
                     text: getTitle(foundHostsList.model[index])
