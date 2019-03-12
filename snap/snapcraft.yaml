@@ -1,0 +1,84 @@
+name: qshodan
+grade: stable
+version: 0.1.0
+confinement: strict
+base: core18
+summary: A cross-platform shodan.io client
+description: |
+  qShodan is a cross-platform shodan.io client.
+  It allows you to query shodan.io for found hosts.
+
+apps:
+  qshodan:
+    environment:
+      QT_PLUGIN_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/qt5/plugins
+      QML2_IMPORT_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/qt5/qml
+    command: desktop-launch qshodan
+    plugs: [ x11, wayland, desktop, desktop-legacy, opengl, camera, network ]
+
+parts:
+  qshodan:
+    plugin: qmake
+    source: .
+    project-files:
+      - qShodan.pro
+    build-packages:
+      - make
+      - qt5-qmake
+      - qttools5-dev
+      - build-essential
+      - qtdeclarative5-dev
+      - qttools5-dev-tools
+      - libqt5xmlpatterns5-dev
+      - qtmultimedia5-dev
+      - libqt5webkit5-dev
+      - qtbase5-dev
+      - qml-module-qtquick2
+      - qml-module-qtquick-window2
+      - qml-module-qtquick-dialogs
+      - qml-module-qtquick-controls2
+      - qml-module-qtquick-layouts
+    stage-packages:
+      - libqt5network5
+      - libqt5multimedia5
+      - libqt5multimedia5-plugins
+      - libqt5sql5
+      - libqt5sql5-sqlite
+      - libqt5svg5
+      - libqt5webkit5
+      - libqt5xml5
+      - libqt5xmlpatterns5
+      - qml-module-qtquick2
+      - qml-module-qtquick-window2
+      - qml-module-qtquick-dialogs
+      - qml-module-qtquick-controls2
+      - qml-module-qtquick-layouts
+      - qml-module-qtmultimedia
+      - libva2
+      - libva-x11-2
+      - mesa-va-drivers
+      - libslang2
+      - libslang2-modules
+    after: [ desktop-qt5 ]
+  desktop-qt5:
+    build-packages:
+      - qtbase5-dev
+      - dpkg-dev
+    make-parameters:
+      - FLAVOR=qt5
+    plugin: make
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: qt
+    stage-packages:
+      - libxkbcommon0
+      - ttf-ubuntu-font-family
+      - dmz-cursor-theme
+      - light-themes
+      - adwaita-icon-theme
+      - gnome-themes-standard
+      - shared-mime-info
+      - libqt5gui5
+      - libgdk-pixbuf2.0-0
+      - libqt5svg5
+      - locales-all
+      - xdg-user-dirs
