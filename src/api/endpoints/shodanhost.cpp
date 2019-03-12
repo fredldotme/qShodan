@@ -54,8 +54,10 @@ void ShodanHost::responseReceivedHandler()
         const int port = matchObject.value("port").toInt();
         const QString isp = matchObject.value("isp").toString();
         const QString asn = matchObject.value("asn").toString();
+        const QString data = matchObject.value("data").toString();
 
         QVariantMap host;
+        host.insert("data", data);
         host.insert("ip", ip_str);
         host.insert("port", port);
         host.insert("asn", asn);
@@ -63,7 +65,7 @@ void ShodanHost::responseReceivedHandler()
         foundHosts.append(host);
     }
 
-    qDebug() << "hosts: " << foundHosts;
+    //qDebug() << "hosts: " << foundHosts;
     this->m_hosts = foundHosts;
     emit hostsChanged();
 }
