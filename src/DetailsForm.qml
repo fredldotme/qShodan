@@ -2,9 +2,19 @@ import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
 import "qrc:/utils.js" as Utils
+import "qrc:/qml-ui-set"
 
 Page {
+    id: pageRoot
+
     property var service : null
+    onServiceChanged: {
+        console.log("Service: " + JSON.stringify(service))
+    }
+
+    readonly property var serviceInfo : service ?
+                                            Utils.getInfo(service) :
+                                            null
     signal backRequested()
 
     header: ToolBar {
@@ -19,10 +29,23 @@ Page {
 
     Column {
         anchors.fill: parent
-        spacing: 64
+        anchors.margins: 32
+        spacing: 8
 
-        Label {
-
+        DetailItem {
+            width: parent.width
+            label: "Type:"
+            value: serviceInfo ? serviceInfo.type : ""
+        }
+        DetailItem {
+            width: parent.width
+            label: "Title:"
+            value: serviceInfo ? serviceInfo.title : ""
+        }
+        DetailItem {
+            width: parent.width
+            label: "Address:"
+            value: serviceInfo ? serviceInfo.address : ""
         }
     }
 }

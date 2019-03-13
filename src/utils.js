@@ -1,13 +1,13 @@
-function getTitle(obj) {
+function getTitle(service) {
     // HTTP(S)
-    if (obj.http !== undefined && obj.http !== null) {
-        if (obj.http.title)
-            return obj.http.title
+    if (service.http !== undefined && service.http !== null) {
+        if (service.http.title)
+            return service.http.title
     }
     // SSH
-    else if (obj.ssh !== undefined && obj.ssh !== null) {
-        if (obj.ssh.fingerprint)
-            return obj.ssh.fingerprint
+    else if (service.ssh !== undefined && service.ssh !== null) {
+        if (service.ssh.fingerprint)
+            return service.ssh.fingerprint
     }
     // Print for adding support later on
     else {
@@ -17,9 +17,32 @@ function getTitle(obj) {
     return qsTr("Untitled")
 }
 
+function getType(service) {
+    // HTTP
+    if (service.http !== undefined && service.http !== null) {
+        return "HTTP"
+    }
+    // SSH
+    else if (service.ssh !== undefined && service.ssh !== null) {
+        return "SSH"
+    }
+
+    return "Unknown"
+}
+
+function getAddress(service) {
+    if (service.ip_str !== undefined && service.port !== undefined)
+        return service.ip_str + ":" + service.port;
+
+    return "Unknown"
+}
+
 function getInfo(service) {
     var info = {
-        "title" : "",
-        "address" : "",
+        "type" : getType(service),
+        "title" : getTitle(service),
+        "address" : getAddress(service)
     }
+
+    return info;
 }
