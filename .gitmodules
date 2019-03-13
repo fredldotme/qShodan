@@ -1,3 +1,6 @@
 [submodule "3rdparty/qzxing"]
 	path = 3rdparty/qzxing
 	url = https://github.com/fredldotme/qzxing
+[submodule "3rdparty/build-openssl-android"]
+	path = 3rdparty/build-openssl-android
+	url = https://github.com/fredldotme/build-openssl-android
