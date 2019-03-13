@@ -7,5 +7,7 @@
         <file>qtquickcontrols2.conf</file>
         <file>LoginScreen.qml</file>
         <file>SettingsForm.qml</file>
+        <file>SearchContainerView.qml</file>
+        <file>DetailsForm.qml</file>
     </qresource>
 </RCC>

@@ -5,7 +5,7 @@ import me.fredl.shodan 1.0
 ApplicationWindow {
     visible: true
     width: 400
-    minimumWidth: 300
+    minimumWidth: 350
     height: 600
     minimumHeight: 500
 
@@ -41,9 +41,8 @@ ApplicationWindow {
         visible: hasApiKey
         currentIndex: tabBar.currentIndex
 
-        SearchForm {
-            shodanHost: shodanHostApi
-        }
+        SearchContainerView {}
+
         //FavoritesForm {}
         SettingsForm {
             onClearApiKey: {

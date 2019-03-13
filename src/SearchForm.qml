@@ -8,6 +8,7 @@ Page {
     height: 600
 
     property ShodanHost shodanHost : null
+    signal detailsRequested(var service)
 
     header: Label {
         color: "#2b2626"
@@ -20,18 +21,18 @@ Page {
         id: mainContainer
         anchors.fill: parent
         RowLayout {
-            Layout.preferredWidth: parent.width - 64
+            width: parent.width - 64
             Layout.alignment: Qt.AlignCenter
             TextField {
                 id: searchField
-                Layout.preferredWidth: (parent.width/3)*2
+                width: (parent.width/3)*2
                 Keys.onReturnPressed: {
                     shodanHost.search(searchField.text)
                 }
             }
             Button {
                 text: qsTr("Search")
-                Layout.preferredWidth: (parent.width/3)
+                width: (parent.width/3)
                 onClicked: {
                     shodanHost.search(searchField.text)
                 }
@@ -47,47 +48,61 @@ Page {
             id: foundHostsList
             model: shodanHost.hosts
             spacing: 10
-            delegate: Column {
+            delegate: MouseArea {
+                id: entryMouseArea
                 width: parent.width
-                height: implicitHeight
+                height: childrenRect.height
 
-                Label {
-                    function getTitle(obj) {
-                        var isHttp = false
-                        var isSsh = false
-
-                        if (obj.http !== undefined && obj.http !== null) {
-                            isHttp = true
-                        }
-                        if (obj.ssh !== undefined && obj.ssh !== null) {
-                            isSsh = true
-                        }
-
-                        if (isHttp && obj.http.title)
-                            return obj.http.title
-
-                        if (isSsh)
-                            return obj.ssh.fingerprint
-
-                        return qsTr("Untitled")
-                    }
-
-                    text: getTitle(foundHostsList.model[index])
-                    font.pixelSize: Qt.application.font.pixelSize * 1.8
+                onClicked: {
+                    detailsRequested(shodanHost.hosts[index])
                 }
-                Label {
-                    property string service : foundHostsList.model[index].ip_str + ":" +
-                                              foundHostsList.model[index].port
 
-                    text: "Service: " + service
-                    font.pixelSize: Qt.application.font.pixelSize * 1.2
-                }
-                Label {
-                    text: "ISP: " + foundHostsList.model[index].isp
-                    font.pixelSize: Qt.application.font.pixelSize * 1.2
-                }
-                MenuSeparator {
+                Rectangle {
                     width: parent.width
+                    height: childrenRect.height
+                    color: entryMouseArea.pressed ?
+                               "lightgray" :
+                               "transparent"
+
+                    Column {
+                        width: parent.width
+                        height: implicitHeight
+
+                        Label {
+                            function getTitle(obj) {
+                                // HTTP(S)
+                                if (obj.http !== undefined && obj.http !== null) {
+                                    if (obj.http.title)
+                                        return obj.http.title
+                                }
+                                // SSH
+                                else if (obj.ssh !== undefined && obj.ssh !== null) {
+                                    if (obj.ssh.fingerprint)
+                                        return obj.ssh.fingerprint
+                                }
+                                // Print for adding support later on
+                                else {
+                                    console.log(JSON.stringify(obj))
+                                }
+
+                                return qsTr("Untitled")
+                            }
+
+                            text: getTitle(foundHostsList.model[index])
+                            font.pixelSize: Qt.application.font.pixelSize * 1.8
+                        }
+                        Label {
+                            property string service : foundHostsList.model[index].ip_str + ":" +
+                                                      foundHostsList.model[index].port
+
+                            text: "Service: " + service
+                            font.pixelSize: Qt.application.font.pixelSize * 1.2
+                        }
+                        Label {
+                            text: "ISP: " + foundHostsList.model[index].isp
+                            font.pixelSize: Qt.application.font.pixelSize * 1.2
+                        }
+                    }
                 }
             }
         }
