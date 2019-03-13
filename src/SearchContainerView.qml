@@ -7,13 +7,14 @@ Page {
     SwipeView {
         id: searchContainer
         anchors.fill: parent
+        interactive: false
 
         SearchForm {
             shodanHost: shodanHostApi
-            /*onDetailsRequested: {
+            onDetailsRequested: {
                 detailsForm.service = service
                 searchContainer.currentIndex = 1
-            }*/
+            }
         }
         DetailsForm {
             id: detailsForm

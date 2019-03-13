@@ -24,11 +24,15 @@ public:
 
 protected:
     QNetworkAccessManager* accessManager();
-    QNetworkReply* reply();
+    QByteArray& data();
     virtual QString apiEndpoint() { return QString(); }
     virtual void responseReceivedHandler() {}
 
 private:
+    void readReadyData();
+    void reset();
+
+    QByteArray m_data;
     QNetworkAccessManager m_accessManager;
     QString m_key;
     QNetworkReply* m_reply = nullptr;
@@ -36,6 +40,7 @@ private:
 signals:
     void apiKeyChanged();
     void busyChanged();
+    void error(const int error, const QString errorString);
 };
 
 #endif // SHODANREQUEST_H

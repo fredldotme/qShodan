@@ -10,7 +10,8 @@
 const QString SHODAN_HOST_SEARCH_ENDPOINT =
         QStringLiteral("https://api.shodan.io/shodan/host/search?key=%1&");
 
-ShodanHost::ShodanHost(QObject* parent) : ShodanRequest (parent)
+ShodanHost::ShodanHost(QObject* parent) :
+    ShodanRequest (parent)
 {
 
 }
@@ -36,13 +37,7 @@ void ShodanHost::responseReceivedHandler()
 {
     qDebug() << Q_FUNC_INFO;
 
-    if (!this->reply()) {
-        qWarning() << "Reply is null..";
-        return;
-    }
-
-    const QByteArray response = this->reply()->readAll();
-    const QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
+    const QJsonDocument jsonDoc = QJsonDocument::fromJson(this->data());
     const QJsonArray matches = jsonDoc.object().value("matches").toArray();
 
     QVariantList foundHosts;

@@ -9,6 +9,13 @@ Page {
     width: 400
     height: 600
 
+    onVisibleChanged: {
+        if (!visible)
+            camera.stop()
+        else
+            camera.start()
+    }
+
     header: Label {
         text: qsTr("Please scan the API key...")
         width: parent.width

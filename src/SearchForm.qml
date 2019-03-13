@@ -2,6 +2,7 @@ import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
 import me.fredl.shodan 1.0
+import "qrc:/utils.js" as Utils
 
 Page {
     width: 400
@@ -69,26 +70,7 @@ Page {
                         height: implicitHeight
 
                         Label {
-                            function getTitle(obj) {
-                                // HTTP(S)
-                                if (obj.http !== undefined && obj.http !== null) {
-                                    if (obj.http.title)
-                                        return obj.http.title
-                                }
-                                // SSH
-                                else if (obj.ssh !== undefined && obj.ssh !== null) {
-                                    if (obj.ssh.fingerprint)
-                                        return obj.ssh.fingerprint
-                                }
-                                // Print for adding support later on
-                                else {
-                                    console.log(JSON.stringify(obj))
-                                }
-
-                                return qsTr("Untitled")
-                            }
-
-                            text: getTitle(foundHostsList.model[index])
+                            text: Utils.getTitle(foundHostsList.model[index])
                             font.pixelSize: Qt.application.font.pixelSize * 1.8
                         }
                         Label {

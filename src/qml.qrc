@@ -9,5 +9,6 @@
         <file>SettingsForm.qml</file>
         <file>SearchContainerView.qml</file>
         <file>DetailsForm.qml</file>
+        <file>utils.js</file>
     </qresource>
 </RCC>
