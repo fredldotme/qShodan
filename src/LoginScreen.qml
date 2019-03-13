@@ -36,6 +36,7 @@ Page {
 
     QZXingFilter {
         id: zxingFilter
+        active: pageRoot.visible
         decoder {
             id: qrcDecoder
             enabledDecoders: QZXing.DecoderFormat_QR_CODE
@@ -58,6 +59,8 @@ Page {
             source: camera
             filters: [ zxingFilter ]
             fillMode: VideoOutput.PreserveAspectFit
+            enabled: pageRoot.visible
+            visible: enabled
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
