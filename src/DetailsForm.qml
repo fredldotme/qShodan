@@ -29,9 +29,11 @@ Page {
 
     Flickable {
         anchors.fill: parent
+        contentHeight: mainColumn.height
         ScrollBar.vertical: ScrollBar {}
 
         Column {
+            id: mainColumn
             anchors {
                 left: parent.left
                 top: parent.top
