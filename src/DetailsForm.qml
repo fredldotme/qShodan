@@ -29,7 +29,7 @@ Page {
 
     Flickable {
         anchors.fill: parent
-        contentHeight: mainColumn.height
+        contentHeight: mainColumn.height + mainColumn.anchors.margins
         ScrollBar.vertical: ScrollBar {}
 
         Column {
