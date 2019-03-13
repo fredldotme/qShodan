@@ -41,7 +41,8 @@ function getInfo(service) {
     var info = {
         "type" : getType(service),
         "title" : getTitle(service),
-        "address" : getAddress(service)
+        "address" : getAddress(service),
+        "data" : service.data
     }
 
     return info;

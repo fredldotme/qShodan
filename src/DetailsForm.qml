@@ -27,25 +27,44 @@ Page {
         }
     }
 
-    Column {
+    Flickable {
         anchors.fill: parent
-        anchors.margins: 32
-        spacing: 8
+        ScrollBar.vertical: ScrollBar {}
 
-        DetailItem {
-            width: parent.width
-            label: "Type:"
-            value: serviceInfo ? serviceInfo.type : ""
-        }
-        DetailItem {
-            width: parent.width
-            label: "Title:"
-            value: serviceInfo ? serviceInfo.title : ""
-        }
-        DetailItem {
-            width: parent.width
-            label: "Address:"
-            value: serviceInfo ? serviceInfo.address : ""
+        Column {
+            anchors {
+                left: parent.left
+                top: parent.top
+                right: parent.right
+                margins: 32
+            }
+
+            spacing: 8
+
+            DetailItem {
+                width: parent.width
+                label: "Type:"
+                value: serviceInfo ? serviceInfo.type : ""
+                ratio: 0.3
+            }
+            DetailItem {
+                width: parent.width
+                label: "Title:"
+                value: serviceInfo ? serviceInfo.title : ""
+                ratio: 0.3
+            }
+            DetailItem {
+                width: parent.width
+                label: "Address:"
+                value: serviceInfo ? serviceInfo.address : ""
+                ratio: 0.3
+            }
+            DetailItem {
+                width: parent.width
+                label: "Data:"
+                value: serviceInfo ? serviceInfo.data : ""
+                ratio: 0.3
+            }
         }
     }
 }
