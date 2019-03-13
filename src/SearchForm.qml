@@ -11,7 +11,7 @@ Page {
 
     header: Label {
         color: "#2b2626"
-        text: qsTr("Search")
+        text: qsTr("Search shodan.io")
         font.pixelSize: Qt.application.font.pixelSize * 2
         padding: 10
     }
@@ -53,21 +53,30 @@ Page {
 
                 Label {
                     function getTitle(obj) {
-                        if (obj.http === undefined || obj.http === null) {
-                            return qsTr("Untitled")
-                        } else {
-                            if (obj.http.title)
-                                return obj.http.title
-                            else
-                                return qsTr("Untitled")
+                        var isHttp = false
+                        var isSsh = false
+
+                        if (obj.http !== undefined && obj.http !== null) {
+                            isHttp = true
                         }
+                        if (obj.ssh !== undefined && obj.ssh !== null) {
+                            isSsh = true
+                        }
+
+                        if (isHttp && obj.http.title)
+                            return obj.http.title
+
+                        if (isSsh)
+                            return obj.ssh.fingerprint
+
+                        return qsTr("Untitled")
                     }
 
                     text: getTitle(foundHostsList.model[index])
                     font.pixelSize: Qt.application.font.pixelSize * 1.8
                 }
                 Label {
-                    property string service : foundHostsList.model[index].ip + ":" +
+                    property string service : foundHostsList.model[index].ip_str + ":" +
                                               foundHostsList.model[index].port
 
                     text: "Service: " + service
