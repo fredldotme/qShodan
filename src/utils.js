@@ -11,7 +11,7 @@ function getTitle(service) {
     }
     // Print for adding support later on
     else {
-        console.log(JSON.stringify(obj))
+        console.log(JSON.stringify(service))
     }
 
     return qsTr("Untitled")
