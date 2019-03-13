@@ -1,5 +1,4 @@
 TARGET = qshodan
-TEMPLATE = app
 QT += quick multimedia network
 CONFIG += c++11 qzxing_qml qzxing_multimedia
 
@@ -41,6 +40,7 @@ else: unix:!android: target.path = /usr/bin
 !isEmpty(target.path): INSTALLS += target
 
 include($$PWD/../3rdparty/qzxing/src/QZXing.pri)
+TEMPLATE = app
 
 DISTFILES += \
     android/AndroidManifest.xml
