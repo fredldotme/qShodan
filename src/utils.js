@@ -52,6 +52,7 @@ function getInfo(service) {
         "title" : getTitle(service),
         "address" : getAddress(service),
         "org" : service.org,
+        "location" : service.location,
         "data" : service.data
     }
 

@@ -117,6 +117,24 @@ Page {
 
             Label {
                 width: parent.width
+                text: qsTr("Location:")
+                font.pixelSize: Qt.application.font.pixelSize * 1.5
+            }
+            DetailItem {
+                width: parent.width
+                label: "Country:"
+                value: serviceInfo ? serviceInfo.location.country_code : ""
+                ratio: 0.3
+            }
+            DetailItem {
+                width: parent.width
+                label: "City:"
+                value: serviceInfo ? serviceInfo.location.city : ""
+                ratio: 0.3
+            }
+
+            Label {
+                width: parent.width
                 text: qsTr("All services:")
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
             }
