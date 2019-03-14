@@ -39,6 +39,7 @@ parts:
       - qml-module-qtquick-controls2
       - qml-module-qtquick-layouts
     stage-packages:
+      - gstreamer1.0-plugins-bad
       - libqt5network5
       - libqt5multimedia5
       - libqt5multimedia5-plugins
