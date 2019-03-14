@@ -47,8 +47,16 @@ include($$PWD/../3rdparty/qzxing/src/QZXing.pri)
 include($$PWD/../3rdparty/qml-ui-set/qml-ui-set.pri)
 TEMPLATE = app
 
-DISTFILES += \
-    android/AndroidManifest.xml
+android {
+    QT += androidextras
+    DISTFILES += \
+        android/AndroidManifest.xml
 
-ANDROID_PACKAGE_SOURCE_DIR = \
-    android
+    ANDROID_PACKAGE_SOURCE_DIR = \
+        $$PWD/android
+
+    LIBS += $$OUT_PWD/../openssl/libcrypto.so
+    LIBS += $$OUT_PWD/../openssl/libssl.so
+    ANDROID_EXTRA_LIBS += $$OUT_PWD/../openssl/libcrypto.so
+    ANDROID_EXTRA_LIBS += $$OUT_PWD/../openssl/libssl.so
+}
