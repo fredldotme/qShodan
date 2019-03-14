@@ -49,3 +49,6 @@ TEMPLATE = app
 
 DISTFILES += \
     android/AndroidManifest.xml
+
+ANDROID_PACKAGE_SOURCE_DIR = \
+    android
