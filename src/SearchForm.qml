@@ -5,8 +5,6 @@ import me.fredl.shodan 1.0
 import "qrc:/utils.js" as Utils
 
 Page {
-    width: 400
-    height: 600
 
     property ShodanHostSearch shodanHost : null
     property ShodanIp shodanIp : null
@@ -22,8 +20,9 @@ Page {
     ColumnLayout {
         id: mainContainer
         anchors.fill: parent
+
         RowLayout {
-            width: parent.width - 64
+            width: parent.width
             Layout.alignment: Qt.AlignCenter
             TextField {
                 id: searchField
@@ -46,7 +45,7 @@ Page {
         }
 
         ListView {
-            width: parent.width
+            Layout.preferredWidth: parent.width
             Layout.preferredHeight: parent.height - 64
             clip: true
             ScrollBar.vertical: ScrollBar {}
@@ -54,6 +53,7 @@ Page {
             id: foundHostsList
             model: shodanHost.hosts
             spacing: 10
+
             delegate: MouseArea {
                 id: entryMouseArea
                 width: parent.width
