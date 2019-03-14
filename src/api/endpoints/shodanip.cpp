@@ -28,7 +28,7 @@ void ShodanIp::responseReceivedHandler()
     const QJsonDocument jsonDoc = QJsonDocument::fromJson(this->data());
     this->m_services = jsonDoc.object().toVariantMap();
 
-    qDebug() << "services:" << jsonDoc.object().value("data").toArray();
+    //qDebug() << "services:" << jsonDoc.object().value("data").toArray();
 
     emit servicesChanged();
 }
