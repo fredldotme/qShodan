@@ -59,6 +59,7 @@ parts:
       - mesa-va-drivers
       - libslang2
       - libslang2-modules
+      - fonts-emojione
     after: [ desktop-qt5 ]
   desktop-qt5:
     build-packages:
