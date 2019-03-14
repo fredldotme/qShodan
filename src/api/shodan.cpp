@@ -27,7 +27,7 @@ ShodanLogin* Shodan::shodanLogin()
     return this->m_login;
 }
 
-ShodanHost* Shodan::host()
+ShodanHostSearch* Shodan::host()
 {
     return &this->m_host;
 }

@@ -18,13 +18,17 @@ SOURCES += \
     api/shodan.cpp \
     api/shodanlogin.cpp \
     api/endpoints/shodanrequest.cpp \
-    api/endpoints/shodanhost.cpp
+    api/endpoints/shodanip.cpp \
+    api/endpoints/shodanhostsearch.cpp \
+    favoritehosts.cpp
 
 HEADERS += \
     api/shodan.h \
     api/shodanlogin.h \
     api/endpoints/shodanrequest.h \
-    api/endpoints/shodanhost.h
+    api/endpoints/shodanip.h \
+    api/endpoints/shodanhostsearch.h \
+    favoritehosts.h
 
 RESOURCES += qml.qrc
 

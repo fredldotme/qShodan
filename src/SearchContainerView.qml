@@ -11,6 +11,7 @@ Page {
 
         SearchForm {
             shodanHost: shodanHostApi
+            shodanIp: shodanIpApi
             onDetailsRequested: {
                 detailsForm.service = service
                 searchContainer.currentIndex = 1
@@ -20,6 +21,7 @@ Page {
             id: detailsForm
             onBackRequested: {
                 searchContainer.currentIndex = 0
+                detailsForm.service = null
             }
         }
     }

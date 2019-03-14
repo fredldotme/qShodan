@@ -9,9 +9,14 @@ function getTitle(service) {
         if (service.ssh.fingerprint)
             return service.ssh.fingerprint
     }
+    // FTP
+    else if (service.ftp !== undefined && service.ftp !== null) {
+        return "FTP server"
+    }
     // Print for adding support later on
+    // Only do this with debug versions
     else {
-        console.log(JSON.stringify(service))
+        // console.log(JSON.stringify(service))
     }
 
     return qsTr("Untitled")
@@ -25,6 +30,10 @@ function getType(service) {
     // SSH
     else if (service.ssh !== undefined && service.ssh !== null) {
         return "SSH"
+    }
+    // SSH
+    else if (service.ftp !== undefined && service.ftp !== null) {
+        return "FTP"
     }
 
     return "Unknown"
@@ -42,6 +51,7 @@ function getInfo(service) {
         "type" : getType(service),
         "title" : getTitle(service),
         "address" : getAddress(service),
+        "org" : service.org,
         "data" : service.data
     }
 

@@ -7,12 +7,12 @@ ShodanRequest::ShodanRequest(QObject* parent) : QObject(parent)
 {
 }
 
-void ShodanRequest::makeRequest(QUrlQuery urlQuery)
+void ShodanRequest::makeRequest(const QString& apiEndpoint, const QUrlQuery&urlQuery)
 {
     if (this->m_reply)
         return;
 
-    const QString url = apiEndpoint() + urlQuery.toString();
+    const QString url = apiEndpoint + urlQuery.toString();
     qDebug() << "URL: " << url;
 
     this->m_data.clear();

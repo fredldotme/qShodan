@@ -13,9 +13,9 @@ public:
     Q_PROPERTY(QString apiKey READ apiKey WRITE setApiKey NOTIFY apiKeyChanged)
     Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
 
-    ShodanRequest(QObject* parent = nullptr);
+    explicit ShodanRequest(QObject* parent = nullptr);
 
-    void makeRequest(QUrlQuery urlQuery);
+    void makeRequest(const QString& apiEndpoint, const QUrlQuery& urlQuery);
 
     QString apiKey();
     void setApiKey(const QString& key);
@@ -25,7 +25,6 @@ public:
 protected:
     QNetworkAccessManager* accessManager();
     QByteArray& data();
-    virtual QString apiEndpoint() { return QString(); }
     virtual void responseReceivedHandler() {}
 
 private:

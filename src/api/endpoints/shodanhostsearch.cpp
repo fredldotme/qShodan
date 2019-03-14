@@ -1,4 +1,4 @@
-#include "shodanhost.h"
+#include "shodanhostsearch.h"
 
 #include <QNetworkReply>
 
@@ -10,30 +10,24 @@
 const QString SHODAN_HOST_SEARCH_ENDPOINT =
         QStringLiteral("https://api.shodan.io/shodan/host/search?key=%1&");
 
-ShodanHost::ShodanHost(QObject* parent) :
-    ShodanRequest (parent)
+ShodanHostSearch::ShodanHostSearch(QObject* parent) : ShodanRequest (parent)
 {
 
 }
 
-QVariantList ShodanHost::hosts()
+QVariantList ShodanHostSearch::hosts()
 {
     return this->m_hosts;
 }
 
-void ShodanHost::search(QString query)
+void ShodanHostSearch::search(QString query)
 {
     QUrlQuery requestFields;
     requestFields.addQueryItem("query", query);
-    this->makeRequest(requestFields);
+    this->makeRequest(SHODAN_HOST_SEARCH_ENDPOINT.arg(apiKey()), requestFields);
 }
 
-QString ShodanHost::apiEndpoint()
-{
-    return SHODAN_HOST_SEARCH_ENDPOINT.arg(apiKey());
-}
-
-void ShodanHost::responseReceivedHandler()
+void ShodanHostSearch::responseReceivedHandler()
 {
     qDebug() << Q_FUNC_INFO;
 

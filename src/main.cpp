@@ -2,7 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QZXing.h>
 
-#include "api/endpoints/shodanhost.h"
+#include "api/endpoints/shodanhostsearch.h"
+#include "api/endpoints/shodanip.h"
 #include "api/endpoints/shodanrequest.h"
 #include "api/shodanlogin.h"
 #include "api/shodan.h"
@@ -14,7 +15,8 @@ int main(int argc, char *argv[])
     QZXing::registerQMLTypes();
     qmlRegisterType<ShodanLogin>("me.fredl.shodan", 1, 0, "ShodanLogin");
     qmlRegisterType<ShodanRequest>("me.fredl.shodan", 1, 0, "ShodanRequest");
-    qmlRegisterType<ShodanHost>("me.fredl.shodan", 1, 0, "ShodanHost");
+    qmlRegisterType<ShodanHostSearch>("me.fredl.shodan", 1, 0, "ShodanHostSearch");
+    qmlRegisterType<ShodanIp>("me.fredl.shodan", 1, 0, "ShodanIp");
     qmlRegisterType<Shodan>("me.fredl.shodan", 1, 0, "Shodan");
 
     QGuiApplication app(argc, argv);

@@ -17,7 +17,7 @@ Page {
     }
 
     header: Label {
-        text: qsTr("Please scan the API key...")
+        text: qsTr("Scan your shodan.io API key...")
         width: parent.width
         wrapMode: Label.WrapAtWordBoundaryOrAnywhere
         font.pixelSize: Qt.application.font.pixelSize * 1.5

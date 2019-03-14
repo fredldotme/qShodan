@@ -17,8 +17,12 @@ ApplicationWindow {
     ShodanLogin {
         id: loginCredentials
     }
-    ShodanHost {
+    ShodanHostSearch {
         id: shodanHostApi
+        apiKey: loginCredentials.apiKey
+    }
+    ShodanIp {
+        id: shodanIpApi
         apiKey: loginCredentials.apiKey
     }
 
@@ -31,6 +35,7 @@ ApplicationWindow {
         anchors.fill: parent
         onKeyFound: {
             loginCredentials.apiKey = key
+            swipeView.currentIndex = 0
         }
     }
 

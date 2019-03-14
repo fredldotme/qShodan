@@ -1,17 +1,28 @@
 #ifndef SHODANIP_H
 #define SHODANIP_H
 
-#include <QObject>
+#include "shodanrequest.h"
 
-class ShodanIp : public QObject
+class ShodanIp : public ShodanRequest
 {
     Q_OBJECT
 public:
-    explicit ShodanIp(QObject *parent = nullptr);
+    Q_PROPERTY(QVariantMap services READ services NOTIFY servicesChanged)
 
-signals:
+    explicit ShodanIp(QObject *parent = nullptr);
+    QVariantMap services();
+
+protected:
+    void responseReceivedHandler() Q_DECL_OVERRIDE;
+
+private:
+    QVariantMap m_services;
 
 public slots:
+    void ip(QString ipAddress);
+
+signals:
+    void servicesChanged();
 };
 
 #endif // SHODANIP_H

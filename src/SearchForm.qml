@@ -8,7 +8,8 @@ Page {
     width: 400
     height: 600
 
-    property ShodanHost shodanHost : null
+    property ShodanHostSearch shodanHost : null
+    property ShodanIp shodanIp : null
     signal detailsRequested(var service)
 
     header: Label {
@@ -28,12 +29,16 @@ Page {
                 id: searchField
                 width: (parent.width/3)*2
                 Keys.onReturnPressed: {
+                    if (searchField.text === "")
+                        return
+
                     shodanHost.search(searchField.text)
                 }
             }
             Button {
                 text: qsTr("Search")
                 width: (parent.width/3)
+                enabled: searchField.text.length > 0
                 onClicked: {
                     shodanHost.search(searchField.text)
                 }
@@ -53,6 +58,7 @@ Page {
                 id: entryMouseArea
                 width: parent.width
                 height: childrenRect.height
+                enabled: !shodanHostApi.busy
 
                 onClicked: {
                     detailsRequested(shodanHost.hosts[index])
