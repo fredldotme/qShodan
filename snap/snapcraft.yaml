@@ -54,11 +54,7 @@ parts:
       - qml-module-qtquick-controls2
       - qml-module-qtquick-layouts
       - qml-module-qtmultimedia
-      - libva2
-      - libva-x11-2
-      - mesa-va-drivers
-      - libslang2
-      - libslang2-modules
+      - qtwayland5
       - fonts-emojione
     after: [ desktop-qt5 ]
   desktop-qt5:
