@@ -26,8 +26,10 @@ void ShodanIp::ip(QString ipAddress)
 void ShodanIp::responseReceivedHandler()
 {
     const QJsonDocument jsonDoc = QJsonDocument::fromJson(this->data());
-    this->m_services = jsonDoc.object().toVariantMap();
+    const QVariantMap foundServices = jsonDoc.object().toVariantMap();
 
+
+    this->m_services = foundServices;
     //qDebug() << "services:" << jsonDoc.object().value("data").toArray();
 
     emit servicesChanged();

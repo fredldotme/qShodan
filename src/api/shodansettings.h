@@ -1,29 +1,35 @@
-#ifndef SHODANLOGIN_H
-#define SHODANLOGIN_H
+#ifndef SHODANSETTINGS_H
+#define SHODANSETTINGS_H
 
 #include <QObject>
 #include <QSettings>
 
-class ShodanLogin : public QObject
+class ShodanSettings : public QObject
 {
     Q_OBJECT
 public:
     Q_PROPERTY(QString apiKey READ apiKey WRITE setApiKey NOTIFY apiKeyChanged)
+    Q_PROPERTY(bool darkMode READ darkMode WRITE setDarkMode NOTIFY darkModeChanged)
 
-    explicit ShodanLogin(QObject *parent = nullptr);
+    explicit ShodanSettings(QObject *parent = nullptr);
 
     QString apiKey();
     void setApiKey(const QString& key);
 
+    bool darkMode();
+    void setDarkMode(const bool& value);
+
 private:
     void refreshSettings();
-    void applyKeyToSettings();
+    void applyToSettings();
 
     QString m_apiKey;
+    bool m_darkMode;
     QSettings m_settings;
 
 signals:
     void apiKeyChanged();
+    void darkModeChanged();
 };
 
-#endif // SHODANLOGIN_H
+#endif // SHODANSETTINGS_H

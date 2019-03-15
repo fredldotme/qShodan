@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "shodanlogin.h"
+#include "shodansettings.h"
 #include "endpoints/shodanhostsearch.h"
 
 class Shodan : public QObject
@@ -11,19 +11,19 @@ class Shodan : public QObject
     Q_OBJECT
 public:
     Q_PROPERTY(ShodanHostSearch* host READ host FINAL)
-    Q_PROPERTY(ShodanLogin* login READ shodanLogin WRITE setShodanLogin NOTIFY shodanLoginChanged)
+    Q_PROPERTY(ShodanSettings* login READ shodanLogin WRITE setShodanLogin NOTIFY shodanLoginChanged)
 
     explicit Shodan(QObject *parent = nullptr,
-                    ShodanLogin* login = nullptr);
+                    ShodanSettings* login = nullptr);
 
-    void setShodanLogin(ShodanLogin* login);
-    ShodanLogin* shodanLogin();
+    void setShodanLogin(ShodanSettings* login);
+    ShodanSettings* shodanLogin();
 
 public slots:
     ShodanHostSearch* host();
 
 private:
-    ShodanLogin* m_login = nullptr;
+    ShodanSettings* m_login = nullptr;
     ShodanHostSearch m_host;
 
 signals:

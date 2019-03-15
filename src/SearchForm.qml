@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts 1.2
 import me.fredl.shodan 1.0
 import "qrc:/utils.js" as Utils
@@ -11,7 +12,7 @@ Page {
     signal detailsRequested(var service)
 
     header: Label {
-        color: "#2b2626"
+        color: Material.accent
         text: qsTr("Search shodan.io")
         font.pixelSize: Qt.application.font.pixelSize * 2
         padding: 10
@@ -26,7 +27,7 @@ Page {
             Layout.alignment: Qt.AlignCenter
             TextField {
                 id: searchField
-                width: (parent.width/3)*2
+                width: (parent.width/4)*3
                 Keys.onReturnPressed: {
                     if (searchField.text === "")
                         return
@@ -36,7 +37,7 @@ Page {
             }
             Button {
                 text: qsTr("Search")
-                width: (parent.width/3)
+                width: (parent.width/4)
                 enabled: searchField.text.length > 0
                 onClicked: {
                     shodanHost.search(searchField.text)
@@ -68,7 +69,7 @@ Page {
                     width: parent.width
                     height: childrenRect.height
                     color: entryMouseArea.pressed ?
-                               "lightgray" :
+                               Material.accent :
                                "transparent"
 
                     Column {

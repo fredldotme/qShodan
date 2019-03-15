@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
 import me.fredl.shodan 1.0
 
 ApplicationWindow {
@@ -9,21 +10,28 @@ ApplicationWindow {
     height: 600
     minimumHeight: 500
 
+    Material.theme: shodanSettings.darkMode ?
+                        Material.Dark :
+                        Material.Light
+    Material.accent: shodanSettings.darkMode ?
+                         Material.Red :
+                         Material.Blue
+
     title: qsTr("qShodan")
 
     readonly property bool hasApiKey :
-        loginCredentials.apiKey !== ""
+        shodanSettings.apiKey !== ""
 
-    ShodanLogin {
-        id: loginCredentials
+    ShodanSettings {
+        id: shodanSettings
     }
     ShodanHostSearch {
         id: shodanHostApi
-        apiKey: loginCredentials.apiKey
+        apiKey: shodanSettings.apiKey
     }
     ShodanIp {
         id: shodanIpApi
-        apiKey: loginCredentials.apiKey
+        apiKey: shodanSettings.apiKey
     }
 
     // Main views
@@ -34,7 +42,7 @@ ApplicationWindow {
         enabled: visible
         anchors.fill: parent
         onKeyFound: {
-            loginCredentials.apiKey = key
+            shodanSettings.apiKey = key
             swipeView.currentIndex = 0
         }
     }
@@ -50,15 +58,16 @@ ApplicationWindow {
 
         //FavoritesForm {}
         SettingsForm {
+            settings: shodanSettings
             onClearApiKey: {
-                loginCredentials.apiKey = ""
+                shodanSettings.apiKey = ""
             }
         }
     }
 
     footer: TabBar {
         id: tabBar
-        visible: loginCredentials.apiKey !== ""
+        visible: shodanSettings.apiKey !== ""
         currentIndex: swipeView.currentIndex
 
         TabButton {

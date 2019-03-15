@@ -19,7 +19,7 @@ function getTitle(service) {
         // console.log(JSON.stringify(service))
     }
 
-    return qsTr("Untitled")
+    return service.ip_str
 }
 
 function getType(service) {

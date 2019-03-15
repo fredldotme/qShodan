@@ -16,19 +16,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     api/shodan.cpp \
-    api/shodanlogin.cpp \
     api/endpoints/shodanrequest.cpp \
     api/endpoints/shodanip.cpp \
     api/endpoints/shodanhostsearch.cpp \
-    favoritehosts.cpp
+    favoritehosts.cpp \
+    api/shodansettings.cpp
 
 HEADERS += \
     api/shodan.h \
-    api/shodanlogin.h \
     api/endpoints/shodanrequest.h \
     api/endpoints/shodanip.h \
     api/endpoints/shodanhostsearch.h \
-    favoritehosts.h
+    favoritehosts.h \
+    api/shodansettings.h
 
 RESOURCES += qml.qrc
 

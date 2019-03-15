@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts 1.2
 import "qrc:/utils.js" as Utils
 import "qrc:/qml-ui-set"
@@ -46,6 +47,9 @@ Page {
                 text: "\u2190 back"
                 onClicked: backRequested()
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
+                background: Rectangle { color: parent.pressed ?
+                                                   Material.accent :
+                                                   "transparent" }
             }
             Label {
                 text: serviceInfo ? serviceInfo.title : ""
@@ -59,7 +63,10 @@ Page {
                 running: fetchingDetails
             }
             ToolButton {
-                text: "Open"
+                text: qsTr("Open")
+                background: Rectangle { color: parent.pressed ?
+                                                   Material.accent :
+                                                   "transparent" }
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
                 onClicked: {
                     Qt.openUrlExternally("https://www.shodan.io/host/" + service.ip_str)
@@ -92,31 +99,31 @@ Page {
             }
             DetailItem {
                 width: parent.width
-                label: "Type:"
+                label: qsTr("Type:")
                 value: serviceInfo ? serviceInfo.type : ""
                 ratio: 0.3
             }
             DetailItem {
                 width: parent.width
-                label: "Title:"
+                label: qsTr("Title:")
                 value: serviceInfo ? serviceInfo.title : ""
                 ratio: 0.3
             }
             DetailItem {
                 width: parent.width
-                label: "Organisation:"
+                label: qsTr("Organisation:")
                 value: serviceInfo ? serviceInfo.org : ""
                 ratio: 0.3
             }
             DetailItem {
                 width: parent.width
-                label: "Address:"
+                label: qsTr("Address:")
                 value: serviceInfo ? serviceInfo.address : ""
                 ratio: 0.3
             }
             DetailItem {
                 width: parent.width
-                label: "Data:"
+                label: qsTr("Data:")
                 value: serviceInfo ? serviceInfo.data : ""
                 ratio: 0.3
             }
@@ -134,7 +141,7 @@ Page {
             }
             DetailItem {
                 width: parent.width
-                label: "City:"
+                label: qsTr("City:")
                 value: serviceInfo ? serviceInfo.location.city : ""
                 ratio: 0.3
             }
@@ -155,7 +162,6 @@ Page {
                         ratio: 0.3
                         label: qsTr("Port:")
                         value: shodanIpApi.services.data[index].port
-                        enabled: fetchingDetails
                     }
                 }
             }

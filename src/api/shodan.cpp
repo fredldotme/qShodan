@@ -1,7 +1,7 @@
 #include "shodan.h"
 
 Shodan::Shodan(QObject *parent,
-               ShodanLogin* login) : QObject(parent)
+               ShodanSettings* login) : QObject(parent)
 {
     connect(this, &Shodan::shodanLoginChanged, this, [=](){
         if (!this->m_login)
@@ -13,7 +13,7 @@ Shodan::Shodan(QObject *parent,
     setShodanLogin(login);
 }
 
-void Shodan::setShodanLogin(ShodanLogin *login)
+void Shodan::setShodanLogin(ShodanSettings *login)
 {
     if (this->m_login == login)
         return;
@@ -22,7 +22,7 @@ void Shodan::setShodanLogin(ShodanLogin *login)
     emit shodanLoginChanged();
 }
 
-ShodanLogin* Shodan::shodanLogin()
+ShodanSettings* Shodan::shodanLogin()
 {
     return this->m_login;
 }

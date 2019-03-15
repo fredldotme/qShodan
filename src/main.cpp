@@ -5,7 +5,7 @@
 #include "api/endpoints/shodanhostsearch.h"
 #include "api/endpoints/shodanip.h"
 #include "api/endpoints/shodanrequest.h"
-#include "api/shodanlogin.h"
+#include "api/shodansettings.h"
 #include "api/shodan.h"
 
 int main(int argc, char *argv[])
@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QZXing::registerQMLTypes();
-    qmlRegisterType<ShodanLogin>("me.fredl.shodan", 1, 0, "ShodanLogin");
+    qmlRegisterType<ShodanSettings>("me.fredl.shodan", 1, 0, "ShodanSettings");
     qmlRegisterType<ShodanRequest>("me.fredl.shodan", 1, 0, "ShodanRequest");
     qmlRegisterType<ShodanHostSearch>("me.fredl.shodan", 1, 0, "ShodanHostSearch");
     qmlRegisterType<ShodanIp>("me.fredl.shodan", 1, 0, "ShodanIp");
