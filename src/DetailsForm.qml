@@ -11,6 +11,7 @@ Page {
     readonly property var serviceInfo : service ?
                                             Utils.getInfo(service) :
                                             null
+    readonly property bool fetchingDetails : serviceDetailsTimer.running || shodanIpApi.busy
 
     onServiceChanged: {
         // Load remaining services provided by the host
@@ -55,7 +56,7 @@ Page {
                 Layout.fillWidth: true
             }
             BusyIndicator {
-                running: shodanIpApi.busy
+                running: fetchingDetails
             }
             ToolButton {
                 text: "Open"
@@ -84,6 +85,11 @@ Page {
 
             spacing: 8
 
+            Label {
+                width: parent.width
+                text: qsTr("Details:")
+                font.pixelSize: Qt.application.font.pixelSize * 1.5
+            }
             DetailItem {
                 width: parent.width
                 label: "Type:"
@@ -149,6 +155,7 @@ Page {
                         ratio: 0.3
                         label: qsTr("Port:")
                         value: shodanIpApi.services.data[index].port
+                        enabled: fetchingDetails
                     }
                 }
             }
