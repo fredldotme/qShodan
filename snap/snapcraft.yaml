@@ -13,7 +13,7 @@ apps:
     environment:
       QT_PLUGIN_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/qt5/plugins
       QML2_IMPORT_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/qt5/qml
-      QT_QPA_PLATFORM=xcb
+      QT_QPA_PLATFORM: xcb
     command: desktop-launch ${SNAP}/lib/qshodan
     plugs: [ x11, wayland, desktop, desktop-legacy, opengl, camera, network ]
 
