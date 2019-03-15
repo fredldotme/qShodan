@@ -47,9 +47,6 @@ Page {
                 text: "\u2190 back"
                 onClicked: backRequested()
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
-                background: Rectangle { color: parent.pressed ?
-                                                   Material.accent :
-                                                   "transparent" }
             }
             Label {
                 text: serviceInfo ? serviceInfo.title : ""
@@ -64,9 +61,6 @@ Page {
             }
             ToolButton {
                 text: qsTr("Open")
-                background: Rectangle { color: parent.pressed ?
-                                                   Material.accent :
-                                                   "transparent" }
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
                 onClicked: {
                     Qt.openUrlExternally("https://www.shodan.io/host/" + service.ip_str)
@@ -94,6 +88,7 @@ Page {
 
             Label {
                 width: parent.width
+                x: width/8
                 text: qsTr("Details:")
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
             }
@@ -130,6 +125,7 @@ Page {
 
             Label {
                 width: parent.width
+                x: width/8
                 text: qsTr("Location:")
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
             }
@@ -148,6 +144,7 @@ Page {
 
             Label {
                 width: parent.width
+                x: width/8
                 text: qsTr("All services:")
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
             }

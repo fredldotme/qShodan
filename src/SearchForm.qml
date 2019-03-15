@@ -25,9 +25,10 @@ Page {
         RowLayout {
             width: parent.width
             Layout.alignment: Qt.AlignHCenter
+            Layout.fillWidth: true
             TextField {
                 id: searchField
-                width: (parent.width/4)*3
+                Layout.preferredWidth: (parent.width/4)*3
                 Keys.onReturnPressed: {
                     if (searchField.text.length > 0)
                         shodanHost.search(searchField.text)
@@ -35,7 +36,7 @@ Page {
             }
             Button {
                 text: qsTr("Search")
-                width: (parent.width/4)
+                //width: (parent.width/4)
                 onClicked: {
                     if (searchField.text.length > 0)
                         shodanHost.search(searchField.text)
