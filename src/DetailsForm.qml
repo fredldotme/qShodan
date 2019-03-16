@@ -86,11 +86,11 @@ Page {
 
             spacing: 8
 
-            Label {
+            DetailItem {
                 width: parent.width
-                x: width/8
-                text: qsTr("Details:")
-                font.pixelSize: Qt.application.font.pixelSize * 1.5
+                labelFont.pixelSize: Qt.application.font.pixelSize * 1.5
+                ratio: 0.3
+                label: qsTr("Details:")
             }
             DetailItem {
                 width: parent.width
@@ -123,11 +123,11 @@ Page {
                 ratio: 0.3
             }
 
-            Label {
+            DetailItem {
                 width: parent.width
-                x: width/8
-                text: qsTr("Location:")
-                font.pixelSize: Qt.application.font.pixelSize * 1.5
+                labelFont.pixelSize: Qt.application.font.pixelSize * 1.5
+                ratio: 0.3
+                label: qsTr("Location:")
             }
             DetailItem {
                 width: parent.width
@@ -142,11 +142,11 @@ Page {
                 ratio: 0.3
             }
 
-            Label {
+            DetailItem {
                 width: parent.width
-                x: width/8
-                text: qsTr("All services:")
-                font.pixelSize: Qt.application.font.pixelSize * 1.5
+                labelFont.pixelSize: Qt.application.font.pixelSize * 1.5
+                ratio: 0.3
+                label: qsTr("All services:")
             }
 
             Repeater {
