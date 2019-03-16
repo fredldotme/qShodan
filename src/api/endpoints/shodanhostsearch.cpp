@@ -30,16 +30,27 @@ void ShodanHostSearch::search(QString query)
 void ShodanHostSearch::responseReceivedHandler()
 {
     qDebug() << Q_FUNC_INFO;
+    QVariantList foundHosts;
 
     const QJsonDocument jsonDoc = QJsonDocument::fromJson(this->data());
-    const QJsonArray matches = jsonDoc.object().value("matches").toArray();
+    const QJsonObject jsonObject = jsonDoc.object();
+    if (!jsonObject.contains(QStringLiteral("matches")))
+        return;
 
-    QVariantList foundHosts;
+    const QJsonArray matches = jsonObject.value("matches").toArray();
 
     for (const QJsonValue match : matches) {
         const QJsonObject matchObject = match.toObject();
-
         QVariantMap host = matchObject.toVariantMap();
+        if (!host.contains(QStringLiteral("ip_str")))
+            continue;
+        if (!host.contains(QStringLiteral("port")))
+            continue;
+        if (!host.contains(QStringLiteral("isp")))
+            continue;
+        if (!host.contains(QStringLiteral("asn")))
+            continue;
+
         foundHosts.append(host);
     }
 

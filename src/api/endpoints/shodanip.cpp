@@ -28,6 +28,16 @@ void ShodanIp::responseReceivedHandler()
     const QJsonDocument jsonDoc = QJsonDocument::fromJson(this->data());
     const QVariantMap foundServices = jsonDoc.object().toVariantMap();
 
+    if (!foundServices.contains(QStringLiteral("ip")))
+        return;
+    if (!foundServices.contains(QStringLiteral("region_code")))
+        return;
+    if (!foundServices.contains(QStringLiteral("area_code")))
+        return;
+    if (!foundServices.contains(QStringLiteral("country_code")))
+        return;
+    if (!foundServices.contains(QStringLiteral("city")))
+        return;
 
     this->m_services = foundServices;
     //qDebug() << "services:" << jsonDoc.object().value("data").toArray();
