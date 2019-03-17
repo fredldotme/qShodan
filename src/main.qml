@@ -28,10 +28,31 @@ ApplicationWindow {
     ShodanHostSearch {
         id: shodanHostApi
         apiKey: shodanSettings.apiKey
+        onError: {
+            dialog.text = qsTr(errorString)
+            dialog.open()
+        }
     }
     ShodanIp {
         id: shodanIpApi
         apiKey: shodanSettings.apiKey
+        onError: {
+            dialog.text = qsTr(errorString)
+            dialog.open()
+        }
+    }
+    Dialog {
+        id: dialog
+        title: qsTr("An error occured")
+        property alias text : textItem.text
+        standardButtons: Dialog.Ok
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
+
+        Label {
+            anchors.fill: parent
+            id: textItem
+        }
     }
 
     // Main views
