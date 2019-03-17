@@ -60,3 +60,7 @@ android {
     ANDROID_EXTRA_LIBS += $$OUT_PWD/../openssl/libcrypto.so
     ANDROID_EXTRA_LIBS += $$OUT_PWD/../openssl/libssl.so
 }
+
+CONFIG(release, debug|release) {
+    DEFINES += QT_NO_DEBUG_OUTPUT
+}
