@@ -19,6 +19,8 @@ QVariantMap ShodanIp::services()
 
 void ShodanIp::ip(QString ipAddress)
 {
+    this->m_services = QVariantMap();
+    emit servicesChanged();
     const QString fullQueryUrl = SHODAN_HOST_IP_ENDPOINT.arg(ipAddress, apiKey());
     this->makeRequest(fullQueryUrl, QUrlQuery());
 }
