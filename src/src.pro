@@ -60,3 +60,7 @@ android {
     ANDROID_EXTRA_LIBS += $$OUT_PWD/../openssl/libcrypto.so
     ANDROID_EXTRA_LIBS += $$OUT_PWD/../openssl/libssl.so
 }
+
+ios {
+    QMAKE_INFO_PLIST = $$PWD/ios/Info.plist
+}
