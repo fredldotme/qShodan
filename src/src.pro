@@ -64,3 +64,7 @@ android {
 ios {
     QMAKE_INFO_PLIST = $$PWD/ios/Info.plist
 }
+
+CONFIG(release, debug|release) {
+    DEFINES += QT_NO_DEBUG_OUTPUT
+}
