@@ -12,7 +12,7 @@ void ShodanRequest::makeRequest(const QString& apiEndpoint, const QUrlQuery&urlQ
     if (this->m_reply)
         return;
 
-    const QString url = apiEndpoint + urlQuery.toString();
+    const QString url = apiEndpoint + urlQuery.toString(QUrl::FullyEncoded);
     qDebug() << "URL: " << url;
 
     this->m_data.clear();
@@ -25,7 +25,7 @@ void ShodanRequest::makeRequest(const QString& apiEndpoint, const QUrlQuery&urlQ
         reset();
         return;
     });
-    connect(this->m_reply, &QNetworkReply::readChannelFinished,
+    connect(this->m_reply, &QNetworkReply::finished,
             this, [=](){
         if (this->m_reply->error() != QNetworkReply::NoError) {
             emit error(static_cast<int>(this->m_reply->error()),
