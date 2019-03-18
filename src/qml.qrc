@@ -10,5 +10,6 @@
         <file>SearchContainerView.qml</file>
         <file>DetailsForm.qml</file>
         <file>utils.js</file>
+        <file>AboutForm.qml</file>
     </qresource>
 </RCC>

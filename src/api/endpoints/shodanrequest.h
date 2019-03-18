@@ -22,6 +22,9 @@ public:
     bool busy();
     void refreshBusy();
 
+public slots:
+    void reset();
+
 protected:
     QNetworkAccessManager* accessManager();
     QByteArray& data();
@@ -29,7 +32,6 @@ protected:
 
 private:
     void readReadyData();
-    void reset();
 
     QByteArray m_data;
     QNetworkAccessManager m_accessManager;

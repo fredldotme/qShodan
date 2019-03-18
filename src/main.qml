@@ -84,6 +84,8 @@ ApplicationWindow {
                 shodanSettings.apiKey = ""
             }
         }
+
+        AboutForm {}
     }
 
     footer: TabBar {
@@ -99,6 +101,9 @@ ApplicationWindow {
         }*/
         TabButton {
             text: qsTr("Settings")
+        }
+        TabButton {
+            text: qsTr("About")
         }
     }
 }
