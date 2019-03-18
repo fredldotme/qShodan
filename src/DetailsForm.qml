@@ -147,8 +147,10 @@ Page {
                 labelFont.pixelSize: Qt.application.font.pixelSize * 1.5
                 ratio: 0.3
                 label: qsTr("All services:")
+                visible: shodanIpApi.services.data !== undefined ?
+                             shodanIpApi.services.data.length > 0
+                           : false
             }
-
             Repeater {
                 width: parent.width
                 model: shodanIpApi.services.data
@@ -159,6 +161,39 @@ Page {
                         ratio: 0.3
                         label: qsTr("Port:")
                         value: shodanIpApi.services.data[index].port
+                    }
+                }
+            }
+
+            DetailItem {
+                width: parent.width
+                labelFont.pixelSize: Qt.application.font.pixelSize * 1.5
+                ratio: 0.3
+                label: qsTr("CVEs:")
+                visible: shodanIpApi.services.vulns !== undefined ?
+                             shodanIpApi.services.vulns.length > 0 :
+                             false
+            }
+            Repeater {
+                width: parent.width
+                model: shodanIpApi.services.vulns
+                delegate: Column {
+                    width: parent.width
+                    Label {
+                        width: parent.width
+                        text: shodanIpApi.services.vulns[index]
+                        font.underline: true
+                        horizontalAlignment: Label.AlignHCenter
+                        font.pixelSize: Qt.application.font.pixelSize * 1.5
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                Qt.openUrlExternally("https://cve.mitre.org/cgi-bin/"+
+                                                     "cvename.cgi?name=" +
+                                                     shodanIpApi.services.vulns[index])
+                            }
+                        }
                     }
                 }
             }
