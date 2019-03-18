@@ -37,6 +37,24 @@ Page {
 
             Label {
                 font.underline: true
+                text: qsTr("Donate via PayPal")
+                horizontalAlignment: Text.AlignHCenter
+                width: parent.width
+                wrapMode: Label.WrapAtWordBoundaryOrAnywhere
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        Qt.openUrlExternally("http://paypal.me/beidl")
+                    }
+                }
+            }
+
+            MenuSeparator {
+                width: parent.width
+            }
+
+            Label {
+                font.underline: true
                 text: qsTr("Source code on GitHub")
                 horizontalAlignment: Text.AlignHCenter
                 width: parent.width
@@ -54,18 +72,22 @@ Page {
                 width: parent.width
                 wrapMode: Label.WrapAtWordBoundaryOrAnywhere
             }
+
+            MenuSeparator {
+                width: parent.width
+            }
+
             Label {
-                font.underline: true
-                text: qsTr("Donate via PayPal")
+                text: qsTr("QZXing (Apache 2.0)")
                 horizontalAlignment: Text.AlignHCenter
                 width: parent.width
                 wrapMode: Label.WrapAtWordBoundaryOrAnywhere
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        Qt.openUrlExternally("http://paypal.me/beidl")
-                    }
-                }
+            }
+            Label {
+                text: qsTr("QML-Ui-Set (LGPL v2.1)")
+                horizontalAlignment: Text.AlignHCenter
+                width: parent.width
+                wrapMode: Label.WrapAtWordBoundaryOrAnywhere
             }
         }
     }
