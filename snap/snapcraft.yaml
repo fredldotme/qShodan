@@ -6,7 +6,11 @@ base: core18
 summary: A cross-platform shodan.io client
 description: |
   qShodan is a cross-platform shodan.io client.
-  It allows you to query shodan.io for found hosts.
+  
+  Features:
+  - Query shodan.io for found hosts
+  - Detailed overview about services
+  - CVE vulerabilities
 
 apps:
   qshodan:
