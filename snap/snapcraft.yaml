@@ -60,6 +60,7 @@ parts:
       - qml-module-qtquick-controls2
       - qml-module-qtquick-layouts
       - qml-module-qtmultimedia
+      - qml-module-qtgraphicaleffects
       - qtwayland5
       - fonts-emojione
     after: [ desktop-qt5 ]
