@@ -55,6 +55,9 @@ Page {
                 horizontalAlignment: Qt.AlignHCenter
                 verticalAlignment: Qt.AlignVCenter
                 Layout.fillWidth: true
+                color: shodanSettings.darkMode ?
+                           "white" :
+                           "black"
             }
             BusyIndicator {
                 running: fetchingDetails
@@ -132,13 +135,37 @@ Page {
             DetailItem {
                 width: parent.width
                 label: "Country:"
-                value: serviceInfo ? serviceInfo.location.country_code : ""
+                value: {
+                    if (serviceInfo && serviceInfo.location &&
+                            serviceInfo.location.country_code) {
+                        return serviceInfo.location.country_code
+                    }
+                    return ""
+                }
+                ratio: 0.3
+            }
+            DetailItem {
+                width: parent.width
+                label: "Area:"
+                value: {
+                    if (serviceInfo && serviceInfo.location &&
+                            serviceInfo.location.area_code) {
+                        return serviceInfo.location.area_code
+                    }
+                    return ""
+                }
                 ratio: 0.3
             }
             DetailItem {
                 width: parent.width
                 label: qsTr("City:")
-                value: serviceInfo ? serviceInfo.location.city : ""
+                value: {
+                    if (serviceInfo && serviceInfo.location &&
+                            serviceInfo.location.city) {
+                        return serviceInfo.location.city
+                    }
+                    return ""
+                }
                 ratio: 0.3
             }
 
