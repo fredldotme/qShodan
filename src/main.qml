@@ -10,6 +10,14 @@ ApplicationWindow {
     height: 600
     minimumHeight: 500
 
+    // Dirty hack to fix the DetailsForm
+    // ToolBar button text colors
+    Component.onCompleted: {
+        var actualSetting = shodanSettings.darkMode
+        shodanSettings.darkMode = !actualSetting
+        shodanSettings.darkMode = actualSetting
+    }
+
     Material.theme: shodanSettings.darkMode ?
                         Material.Dark :
                         Material.Light
