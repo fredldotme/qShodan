@@ -27,6 +27,10 @@ function getType(service) {
     if (service.http !== undefined && service.http !== null) {
         return "HTTP"
     }
+    // SSL
+    if (service.ssl !== undefined && service.sll !== null) {
+        return "SSL/TLS"
+    }
     // SSH
     else if (service.ssh !== undefined && service.ssh !== null) {
         return "SSH"
