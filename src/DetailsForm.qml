@@ -173,7 +173,7 @@ Page {
                 width: parent.width
                 labelFont.pixelSize: Qt.application.font.pixelSize * 1.5
                 ratio: 0.3
-                label: qsTr("All services:")
+                label: qsTr("Ports:")
                 visible: shodanIpApi.services.data !== undefined ?
                              shodanIpApi.services.data.length > 0
                            : false
