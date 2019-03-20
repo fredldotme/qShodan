@@ -1,6 +1,6 @@
 name: qshodan
 grade: stable
-version: 0.1.0
+version: 0.1.1
 confinement: strict
 base: core18
 summary: A cross-platform shodan.io client
