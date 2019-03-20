@@ -52,22 +52,27 @@ void FavoriteHosts::readFromFile()
 
 void FavoriteHosts::writeToFile()
 {
+    qDebug() << Q_FUNC_INFO;
+
     if (this->m_favFile->isOpen())
         this->m_favFile->close();
 
-    const bool open = this->m_favFile->open(QFile::ReadWrite);
+    const bool open = this->m_favFile->open(QFile::ReadWrite | QFile::Truncate);
     if (!open) {
         qWarning() << "Failed to open favorites in ReadWrite mode";
         return;
     }
 
     QTextStream fileStream(this->m_favFile);
+
+    qDebug() << "Saving favorites:";
     for (QVariant value : this->m_favorites) {
         QVariantMap host = value.toMap();
         const QString ip_str = host.value("ip_str").toString();
         if (ip_str.isEmpty())
             continue;
 
+        qDebug() << ip_str;
         fileStream << ip_str << endl;
     }
     this->m_favFile->close();
