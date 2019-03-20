@@ -3,9 +3,13 @@ import QtQuick.Controls 2.2
 
 Page {
     Flickable {
-        anchors.fill: parent
+        width: parent.width
+        height: parent.height
+        contentHeight: mainColumn.height
+        ScrollBar.vertical: ScrollBar {}
 
         Column {
+            id: mainColumn
             width: parent.width
             spacing: 8
 

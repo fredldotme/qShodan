@@ -7,9 +7,9 @@ import "qrc:/utils.js" as Utils
 import "qrc:/qml-ui-set"
 
 Page {
-
     property ShodanHostSearch shodanHost : null
     property ShodanIp shodanIp : null
+
     signal detailsRequested(var service)
 
     header: Label {
@@ -29,6 +29,7 @@ Page {
             Layout.fillWidth: true
             TextField {
                 id: searchField
+                focus: true
                 Layout.preferredWidth: (parent.width/4)*3
                 Keys.onReturnPressed: {
                     if (searchField.text.length > 0)

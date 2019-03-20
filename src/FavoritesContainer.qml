@@ -5,22 +5,24 @@ import me.fredl.shodan 1.0
 
 Page {
     SwipeView {
-        id: searchContainer
+        id: favoritesContainer
         anchors.fill: parent
         interactive: false
 
-        SearchForm {
-            shodanHost: shodanHostApi
-            shodanIp: shodanIpApi
-            onDetailsRequested: {
-                detailsForm.setHost(service)
-                searchContainer.currentIndex = 1
+        FavoritesForm {
+            onHostDetailsRequest: {
+                var host = {
+                    "ip_str" : ip
+                }
+                detailsForm.setHost(host)
+                favoritesContainer.currentIndex = 1
             }
         }
+
         DetailsForm {
             id: detailsForm
             onBackRequested: {
-                searchContainer.currentIndex = 0
+                favoritesContainer.currentIndex = 0
                 detailsForm.setHost(null)
             }
         }

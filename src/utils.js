@@ -50,15 +50,10 @@ function getAddress(service) {
     return "Unknown"
 }
 
-function getInfo(service) {
-    var info = {
-        "type" : getType(service),
-        "title" : getTitle(service),
-        "address" : getAddress(service),
-        "org" : service.org,
-        "location" : service.location,
-        "data" : service.data
+function getInfo(host) {
+    if (!host) {
+        host = {}
     }
-
-    return info;
+    host.type = getType(host)
+    return host;
 }

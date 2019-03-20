@@ -2,23 +2,31 @@ import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts 1.2
+import me.fredl.shodan 1.0
 import "qrc:/utils.js" as Utils
 import "qrc:/qml-ui-set"
 
 Page {
     id: pageRoot
 
-    property var service : null
-    readonly property var serviceInfo : service ?
-                                            Utils.getInfo(service) :
-                                            null
+    property var host : null
+
+    property bool isInFavorites : false
     readonly property bool fetchingDetails : serviceDetailsTimer.running || shodanIpApi.busy
 
-    onServiceChanged: {
+    readonly property string starFull : "\u2605"
+    readonly property string starEmpty : "\u2606"
+
+    function setHost(host) {
+        pageRoot.host = host
+    }
+
+    onHostChanged: {
         // Load remaining services provided by the host
         // via the ShodanIp API
-        if (!service)
+        if (!host)
             return
+        isInFavorites = favorites.contains(host.ip_str);
         serviceDetailsTimer.start()
     }
     onBackRequested: {
@@ -32,7 +40,7 @@ Page {
         id: serviceDetailsTimer
         interval: 1000
         repeat: false
-        onTriggered: shodanIpApi.ip(service.ip_str)
+        onTriggered: shodanIpApi.ip(host.ip_str)
     }
 
     signal backRequested()
@@ -49,27 +57,46 @@ Page {
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
             }
             Label {
-                text: serviceInfo ? serviceInfo.title : ""
                 elide: Label.ElideRight
-                font.pixelSize: Qt.application.font.pixelSize * 1.5
                 horizontalAlignment: Qt.AlignHCenter
                 verticalAlignment: Qt.AlignVCenter
                 Layout.fillWidth: true
-                color: shodanSettings.darkMode ?
-                           "white" :
-                           "black"
             }
-            BusyIndicator {
-                running: fetchingDetails
+            ToolButton {
+                text: {
+                    if (!host) {
+                        return starEmpty
+                    }
+
+                    if (isInFavorites) {
+                        return starFull
+                    } else {
+                        return starEmpty
+                    }
+                }
+
+                font.pixelSize: Qt.application.font.pixelSize * 1.5
+                onClicked: {
+                    if (!isInFavorites)
+                        favorites.add(host.ip_str)
+                    else
+                        favorites.remove(host.ip_str)
+                    isInFavorites = favorites.contains(host.ip_str);
+                }
             }
             ToolButton {
                 text: qsTr("Open")
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
                 onClicked: {
-                    Qt.openUrlExternally("https://www.shodan.io/host/" + service.ip_str)
+                    Qt.openUrlExternally("https://www.shodan.io/host/" + host.ip_str)
                 }
             }
         }
+    }
+
+    BusyIndicator {
+        anchors.centerIn: parent
+        running: fetchingDetails
     }
 
     Flickable {
@@ -77,6 +104,7 @@ Page {
         contentHeight: mainColumn.height + mainColumn.anchors.margins
         clip: true
         ScrollBar.vertical: ScrollBar {}
+        visible: !fetchingDetails
 
         Column {
             id: mainColumn
@@ -93,54 +121,47 @@ Page {
                 width: parent.width
                 labelFont.pixelSize: Qt.application.font.pixelSize * 1.5
                 ratio: 0.3
-                label: qsTr("Details:")
-            }
-            DetailItem {
-                width: parent.width
-                label: qsTr("Type:")
-                value: serviceInfo ? serviceInfo.type : ""
-                ratio: 0.3
-            }
-            DetailItem {
-                width: parent.width
-                label: qsTr("Title:")
-                value: serviceInfo ? serviceInfo.title : ""
-                ratio: 0.3
+                label: qsTr("Details")
             }
             DetailItem {
                 width: parent.width
                 label: qsTr("Organisation:")
-                value: serviceInfo ? serviceInfo.org : ""
+                value: {
+                    if (shodanIpApi.services.org !== undefined &&
+                            shodanIpApi.services.org !== null) {
+                        return shodanIpApi.services.org
+                    } else {
+                        return ""
+                    }
+                }
                 ratio: 0.3
             }
             DetailItem {
                 width: parent.width
                 label: qsTr("Address:")
-                value: serviceInfo ? serviceInfo.address : ""
-                ratio: 0.3
-            }
-            DetailItem {
-                width: parent.width
-                label: qsTr("Data:")
-                value: serviceInfo ? serviceInfo.data : ""
+                value: host ? host.ip_str : ""
                 ratio: 0.3
             }
 
+            MenuSeparator {
+                width: parent.width
+            }
             DetailItem {
                 width: parent.width
                 labelFont.pixelSize: Qt.application.font.pixelSize * 1.5
                 ratio: 0.3
-                label: qsTr("Location:")
+                label: qsTr("Location")
             }
             DetailItem {
                 width: parent.width
                 label: "Country:"
                 value: {
-                    if (serviceInfo && serviceInfo.location &&
-                            serviceInfo.location.country_code) {
-                        return serviceInfo.location.country_code
+                    if (shodanIpApi.services.country_name !== undefined &&
+                            shodanIpApi.services.country_name !== null) {
+                        return shodanIpApi.services.country_name
+                    } else {
+                        return ""
                     }
-                    return ""
                 }
                 ratio: 0.3
             }
@@ -148,11 +169,12 @@ Page {
                 width: parent.width
                 label: "Area:"
                 value: {
-                    if (serviceInfo && serviceInfo.location &&
-                            serviceInfo.location.area_code) {
-                        return serviceInfo.location.area_code
+                    if (shodanIpApi.services.area_code !== undefined &&
+                            shodanIpApi.services.area_code !== null) {
+                        return shodanIpApi.services.area_code
+                    } else {
+                        return ""
                     }
-                    return ""
                 }
                 ratio: 0.3
             }
@@ -160,20 +182,24 @@ Page {
                 width: parent.width
                 label: qsTr("City:")
                 value: {
-                    if (serviceInfo && serviceInfo.location &&
-                            serviceInfo.location.city) {
-                        return serviceInfo.location.city
+                    if (shodanIpApi.services.city !== undefined &&
+                            shodanIpApi.services.city !== null) {
+                        return shodanIpApi.services.city
+                    } else {
+                        return ""
                     }
-                    return ""
                 }
                 ratio: 0.3
             }
 
+            MenuSeparator {
+                width: parent.width
+            }
             DetailItem {
                 width: parent.width
                 labelFont.pixelSize: Qt.application.font.pixelSize * 1.5
                 ratio: 0.3
-                label: qsTr("Ports:")
+                label: qsTr("Services")
                 visible: shodanIpApi.services.data !== undefined ?
                              shodanIpApi.services.data.length > 0
                            : false
@@ -188,6 +214,18 @@ Page {
                         ratio: 0.3
                         label: qsTr("Port:")
                         value: shodanIpApi.services.data[index].port
+                    }
+                    DetailItem {
+                        width: parent.width
+                        ratio: 0.3
+                        label: qsTr("Transport:")
+                        value: shodanIpApi.services.data[index].transport
+                    }
+                    DetailItem {
+                        width: parent.width
+                        ratio: 0.3
+                        label: qsTr("Data:")
+                        value: shodanIpApi.services.data[index].data
                     }
                 }
             }

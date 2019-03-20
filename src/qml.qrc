@@ -11,5 +11,6 @@
         <file>DetailsForm.qml</file>
         <file>utils.js</file>
         <file>AboutForm.qml</file>
+        <file>FavoritesContainer.qml</file>
     </qresource>
 </RCC>

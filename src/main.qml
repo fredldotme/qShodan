@@ -49,6 +49,10 @@ ApplicationWindow {
             dialog.open()
         }
     }
+    FavoriteHosts {
+        id: favorites
+    }
+
     Dialog {
         id: dialog
         title: qsTr("An error occured")
@@ -84,15 +88,13 @@ ApplicationWindow {
         currentIndex: tabBar.currentIndex
 
         SearchContainerView {}
-
-        //FavoritesForm {}
+        FavoritesContainer {}
         SettingsForm {
             settings: shodanSettings
             onClearApiKey: {
                 shodanSettings.apiKey = ""
             }
         }
-
         AboutForm {}
     }
 
@@ -101,17 +103,25 @@ ApplicationWindow {
         visible: shodanSettings.apiKey !== ""
         currentIndex: swipeView.currentIndex
 
+        // Looking glass
         TabButton {
-            text: qsTr("Search")
+            text: "Search"
+            //text: String.fromCharCode(0xF09F8C90)
         }
-        /*TabButton {
-            text: qsTr("Favorites")
-        }*/
+        // Favorites
         TabButton {
-            text: qsTr("Settings")
+            text: "Favorites"
+            //text: String.fromCharCode(0x2605)
         }
+        // Settings
         TabButton {
-            text: qsTr("About")
+            text: "Settings"
+            //text: String.fromCharCode(0x2699)
+        }
+        // About
+        TabButton {
+            text: "About"
+            //text: String.fromCharCode(0x2753)
         }
     }
 }
