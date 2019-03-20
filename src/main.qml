@@ -37,7 +37,7 @@ ApplicationWindow {
         id: shodanHostApi
         apiKey: shodanSettings.apiKey
         onError: {
-            dialog.text = qsTr(errorString)
+            dialog.text = errorString
             dialog.open()
         }
     }
@@ -45,7 +45,7 @@ ApplicationWindow {
         id: shodanIpApi
         apiKey: shodanSettings.apiKey
         onError: {
-            dialog.text = qsTr(errorString)
+            dialog.text = errorString
             dialog.open()
         }
     }
@@ -64,6 +64,7 @@ ApplicationWindow {
         Label {
             anchors.fill: parent
             id: textItem
+            wrapMode: Label.WrapAtWordBoundaryOrAnywhere
         }
     }
 
