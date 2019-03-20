@@ -11,6 +11,8 @@ description: |
   - Query shodan.io for found hosts
   - Detailed overview about services
   - List vulnerable CVEs
+  
+  Also available on the Google Play Store.
 
 apps:
   qshodan:
