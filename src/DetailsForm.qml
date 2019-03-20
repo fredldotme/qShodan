@@ -29,9 +29,6 @@ Page {
         isInFavorites = favorites.contains(host.ip_str);
         serviceDetailsTimer.start()
     }
-    onBackRequested: {
-        serviceDetailsTimer.stop()
-    }
 
     // Due to rate limits on the API endpoints
     // it's advisable to use a timer for delayed
@@ -44,6 +41,10 @@ Page {
     }
 
     signal backRequested()
+    onBackRequested: {
+        serviceDetailsTimer.stop()
+        shodanIpApi.reset()
+    }
 
     header: ToolBar {
         background: Rectangle { color: "transparent" }
@@ -94,9 +95,12 @@ Page {
         }
     }
 
-    BusyIndicator {
+    AbortableBusyIndicator {
         anchors.centerIn: parent
         running: fetchingDetails
+        onAbort: {
+            backRequested()
+        }
     }
 
     Flickable {
