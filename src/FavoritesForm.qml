@@ -14,6 +14,15 @@ Page {
         padding: 10
     }
 
+    Label {
+        width: parent.width
+        anchors.centerIn: parent
+        horizontalAlignment: Qt.AlignHCenter
+        font.pixelSize: Qt.application.font.pixelSize * 1.8
+        visible: favorites.favorites.length < 1
+        text: qsTr("No favorites saved yet")
+    }
+
     ListView {
         width: parent.width
         height: parent.height - 64
