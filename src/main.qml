@@ -87,7 +87,7 @@ ApplicationWindow {
         anchors.fill: parent
         visible: hasApiKey
         interactive: tabBar.enabled
-        currentIndex: tabBar.currentIndex
+        //currentIndex: tabBar.currentIndex
 
         SearchContainerView {
             id: searchContainerView
@@ -115,21 +115,25 @@ ApplicationWindow {
         TabButton {
             text: "Search"
             //text: String.fromCharCode(0xF09F8C90)
+            onClicked: swipeView.currentIndex = 0
         }
         // Favorites
         TabButton {
             text: "Favorites"
             //text: String.fromCharCode(0x2605)
+            onClicked: swipeView.currentIndex = 1
         }
         // Settings
         TabButton {
             text: "Settings"
             //text: String.fromCharCode(0x2699)
+            onClicked: swipeView.currentIndex = 2
         }
         // About
         TabButton {
             text: "About"
             //text: String.fromCharCode(0x2753)
+            onClicked: swipeView.currentIndex = 3
         }
     }
 }

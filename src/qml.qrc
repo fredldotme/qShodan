@@ -3,7 +3,6 @@
         <file>main.qml</file>
         <file>SearchForm.qml</file>
         <file>FavoritesForm.qml</file>
-        <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>LoginScreen.qml</file>
         <file>SettingsForm.qml</file>

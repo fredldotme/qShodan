@@ -64,6 +64,10 @@ android {
 
 ios {
     QMAKE_INFO_PLIST = $$PWD/ios/Info.plist
+
+    app_icons.files = $$PWD/ios/qshodan.png
+    app_launch_screen.files = $$PWD/ios/LaunchScreen.xib
+    QMAKE_BUNDLE_DATA += app_launch_screen app_icons
 }
 
 CONFIG(release, debug|release) {
