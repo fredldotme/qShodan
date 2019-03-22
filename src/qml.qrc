@@ -11,5 +11,8 @@
         <file>utils.js</file>
         <file>AboutForm.qml</file>
         <file>FavoritesContainer.qml</file>
+        <file>qml/details/HostDetails.qml</file>
+        <file>qml/details/ServiceDetails.qml</file>
+        <file>qml/details/CveDetails.qml</file>
     </qresource>
 </RCC>
