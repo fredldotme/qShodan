@@ -14,21 +14,23 @@ Page {
         hasVulnerabilities ? shodanIpApi.services.vulns.length :
                              0
 
+    Label {
+        width: parent.width
+        height: parent.height
+        horizontalAlignment: Qt.AlignHCenter
+        verticalAlignment: Qt.AlignVCenter
+        text: qsTr("No vulnerable CVEs found")
+        font.pixelSize: Qt.application.font.pixelSize * 1.8
+        wrapMode: Label.WrapAtWordBoundaryOrAnywhere
+        visible: !hasVulnerabilities
+    }
+
     Flickable {
         anchors.fill: parent
         contentHeight: mainColumn.height + mainColumn.anchors.margins
         clip: true
         ScrollBar.vertical: ScrollBar {}
         visible: !fetchingDetails
-
-        Label {
-            anchors.centerIn: parent
-            width: parent.width
-            horizontalAlignment: Qt.AlignHCenter
-            text: qsTr("No vulnerable CVEs found")
-            wrapMode: Label.WrapAtWordBoundaryOrAnywhere
-            visible: !hasVulnerabilities
-        }
 
         Column {
             id: mainColumn

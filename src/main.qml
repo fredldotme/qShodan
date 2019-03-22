@@ -105,10 +105,13 @@ ApplicationWindow {
     }
 
     footer: TabBar {
+        readonly property bool enableMainTabBar :
+            searchContainerView.searchContainer.currentIndex < 1 &&
+            favoritesContainerView.favoritesContainer.currentIndex < 1
+
         id: tabBar
-        visible: shodanSettings.apiKey !== ""
-        enabled: searchContainerView.searchContainer.currentIndex < 1 &&
-                 favoritesContainerView.favoritesContainer.currentIndex < 1
+        visible: shodanSettings.apiKey !== "" && enableMainTabBar
+        enabled: enableMainTabBar
         currentIndex: swipeView.currentIndex
 
         // Looking glass
