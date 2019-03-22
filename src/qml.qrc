@@ -1,16 +1,16 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>SearchForm.qml</file>
-        <file>FavoritesForm.qml</file>
         <file>qtquickcontrols2.conf</file>
-        <file>LoginScreen.qml</file>
-        <file>SettingsForm.qml</file>
-        <file>SearchContainerView.qml</file>
-        <file>DetailsForm.qml</file>
-        <file>utils.js</file>
-        <file>AboutForm.qml</file>
-        <file>FavoritesContainer.qml</file>
+        <file>js/utils.js</file>
+        <file>qml/main.qml</file>
+        <file>qml/SearchForm.qml</file>
+        <file>qml/FavoritesForm.qml</file>
+        <file>qml/LoginScreen.qml</file>
+        <file>qml/SettingsForm.qml</file>
+        <file>qml/SearchContainerView.qml</file>
+        <file>qml/DetailsForm.qml</file>
+        <file>qml/AboutForm.qml</file>
+        <file>qml/FavoritesContainer.qml</file>
         <file>qml/details/HostDetails.qml</file>
         <file>qml/details/ServiceDetails.qml</file>
         <file>qml/details/CveDetails.qml</file>

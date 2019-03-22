@@ -3,7 +3,7 @@ import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts 1.2
 import me.fredl.shodan 1.0
-import "qrc:/utils.js" as Utils
+import "qrc:/js/utils.js" as Utils
 import "qrc:/qml-ui-set"
 
 Page {
