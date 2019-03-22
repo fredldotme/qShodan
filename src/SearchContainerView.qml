@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.2
 import me.fredl.shodan 1.0
 
 Page {
+    property alias searchContainer : searchContainer
     SwipeView {
         id: searchContainer
         anchors.fill: parent

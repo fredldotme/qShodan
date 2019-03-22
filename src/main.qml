@@ -86,10 +86,15 @@ ApplicationWindow {
         id: swipeView
         anchors.fill: parent
         visible: hasApiKey
+        interactive: tabBar.enabled
         currentIndex: tabBar.currentIndex
 
-        SearchContainerView {}
-        FavoritesContainer {}
+        SearchContainerView {
+            id: searchContainerView
+        }
+        FavoritesContainer {
+            id: favoritesContainerView
+        }
         SettingsForm {
             settings: shodanSettings
             onClearApiKey: {
@@ -102,6 +107,8 @@ ApplicationWindow {
     footer: TabBar {
         id: tabBar
         visible: shodanSettings.apiKey !== ""
+        enabled: searchContainerView.searchContainer.currentIndex < 1 &&
+                 favoritesContainerView.favoritesContainer.currentIndex < 1
         currentIndex: swipeView.currentIndex
 
         // Looking glass
