@@ -1,0 +1,15 @@
+{
+    "name": "me.fredl.qshodan",
+    "title": "GhostCloud",
+    "version": "0.9.0",
+    "description": "A multi-platform shodan.io client",
+    "architecture": "@CLICK_ARCH@",
+    "framework": "ubuntu-sdk-16.04",
+    "maintainer": "Alfred Neumayer <dev.beidl@gmail.com>",
+    "hooks": {
+        "harbour-owncloud": {
+            "apparmor": "qshodan.apparmor",
+            "desktop": "qshodan.desktop"
+        }
+    }
+}
