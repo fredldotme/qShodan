@@ -66,6 +66,13 @@ Page {
             source: camera
             filters: [ zxingFilter ]
             fillMode: VideoOutput.PreserveAspectFit
+            rotation : {
+                if (camera.orientation === 0)
+                    return 0
+                else
+                    return 90
+            }
+            transformOrigin: Item.Center
             enabled: pageRoot.visible
             visible: enabled
             MouseArea {
