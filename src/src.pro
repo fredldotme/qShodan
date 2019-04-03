@@ -56,8 +56,6 @@ android {
     ANDROID_PACKAGE_SOURCE_DIR = \
         $$PWD/android
 
-    LIBS += $$OUT_PWD/../openssl/libcrypto.so
-    LIBS += $$OUT_PWD/../openssl/libssl.so
     ANDROID_EXTRA_LIBS += $$OUT_PWD/../openssl/libcrypto.so
     ANDROID_EXTRA_LIBS += $$OUT_PWD/../openssl/libssl.so
 }
