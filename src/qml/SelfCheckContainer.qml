@@ -46,7 +46,7 @@ Page {
                     text: qsTr("Quick check")
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: {
-                        shodanTools.ip()
+                        ipQueryDelayTimer.start()
                         selfCheckContainerContainer.currentIndex = 1
                     }
                 }
