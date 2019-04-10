@@ -1,8 +1,8 @@
 {
     "policy_groups": [
-        "networking",
+        "camera",
         "connectivity",
-        "content_exchange"
+        "networking",
     ],
     "policy_version": 16.04
 }

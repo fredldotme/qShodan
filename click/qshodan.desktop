@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-#Icon=usr/share/icons/hicolor/128x128/apps/harbour-owncloud.png
-Exec=lib/qshodan
+Icon=qshodan.png
+Exec=run.sh
 Name=qShodan
 X-Ubuntu-Touch=true

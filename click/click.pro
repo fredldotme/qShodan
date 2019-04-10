@@ -25,6 +25,14 @@ mfile.CONFIG += no_check_exist
 mfile.files  += $$OUT_PWD/manifest.json
 mfile.path = /
 
+# Run script
+runsh.files += $$PWD/run.sh
+runsh.path = /
+
+# App icon asset
+appicon.files += $$PWD/../src/assets/qshodan.png
+appicon.path = /
+
 # AppArmor profile
 apparmor.files += $$PWD/qshodan.apparmor
 apparmor.path = /
@@ -33,4 +41,4 @@ apparmor.path = /
 desktop.files += $$PWD/qshodan.desktop
 desktop.path = /
 
-INSTALLS += mfile apparmor desktop
+INSTALLS += mfile runsh apparmor appicon desktop
