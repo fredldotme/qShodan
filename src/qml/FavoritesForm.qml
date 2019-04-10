@@ -32,6 +32,7 @@ Page {
             anchors.fill: parent
             width: parent.width
             wrapMode: Label.WrapAtWordBoundaryOrAnywhere
+            color: Material.foreground
         }
         onAccepted: {
             favorites.rename(listView.selectedIp, inputArea.text)
