@@ -23,6 +23,8 @@ void ShodanTools::ip()
 
 void ShodanTools::responseReceivedHandler(const uint httpStatus)
 {
+    Q_UNUSED(httpStatus);
+
     QString currentIp = QString::fromUtf8(this->data());
     this->m_ipAddress = currentIp.replace("\"", "");
     qDebug() << "public IP:" << m_ipAddress;
