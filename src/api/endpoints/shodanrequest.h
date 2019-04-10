@@ -28,7 +28,9 @@ public slots:
 protected:
     QNetworkAccessManager* accessManager();
     QByteArray& data();
-    virtual void responseReceivedHandler() {}
+    virtual void responseReceivedHandler(const uint httpStatus = 0) {
+        Q_UNUSED(httpStatus)
+    }
 
 private:
     void readReadyData();

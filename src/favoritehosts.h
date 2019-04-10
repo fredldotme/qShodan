@@ -18,7 +18,8 @@ public:
 
 public slots:
     bool contains(const QString& ip);
-    void add(const QString& ip);
+    void add(const QString& ip, const QString& name = QStringLiteral(""));
+    void rename(const QString& ip, const QString& name);
     void remove(const QString& ip);
 
 private:

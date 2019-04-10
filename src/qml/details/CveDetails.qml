@@ -24,50 +24,31 @@ Page {
         visible: !hasVulnerabilities
     }
 
-    Flickable {
-        anchors.fill: parent
-        contentHeight: mainColumn.height + mainColumn.anchors.margins
+    ListView {
+        width: parent.width
+        height: parent.height
+        model: shodanIpApi.services.vulns
+        spacing: 8
         clip: true
-        ScrollBar.vertical: ScrollBar {}
-        visible: !fetchingDetails
-
-        Column {
-            id: mainColumn
-            anchors {
-                left: parent.left
-                top: parent.top
-                right: parent.right
-                margins: 32
-            }
-
-            DetailItem {
+        delegate: Column {
+            width: parent.width
+            Label {
                 width: parent.width
-                labelFont.pixelSize: Qt.application.font.pixelSize * 1.5
-                ratio: 0.3
-                label: qsTr("CVEs:")
-                visible: hasVulnerabilities
-            }
+                text: shodanIpApi.services.vulns[index]
+                font.underline: true
+                horizontalAlignment: Label.AlignHCenter
+                font.pixelSize: Qt.application.font.pixelSize * 1.5
+                color: mouseArea.pressed ?
+                           Material.accent :
+                           Material.foreground
 
-            Repeater {
-                width: parent.width
-                model: shodanIpApi.services.vulns
-                delegate: Column {
-                    width: parent.width
-                    Label {
-                        width: parent.width
-                        text: shodanIpApi.services.vulns[index]
-                        font.underline: true
-                        horizontalAlignment: Label.AlignHCenter
-                        font.pixelSize: Qt.application.font.pixelSize * 1.5
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                Qt.openUrlExternally("https://cve.mitre.org/cgi-bin/"+
-                                                     "cvename.cgi?name=" +
-                                                     shodanIpApi.services.vulns[index])
-                            }
-                        }
+                MouseArea {
+                    id: mouseArea
+                    anchors.fill: parent
+                    onClicked: {
+                        Qt.openUrlExternally("https://cve.mitre.org/cgi-bin/"+
+                                             "cvename.cgi?name=" +
+                                             shodanIpApi.services.vulns[index])
                     }
                 }
             }

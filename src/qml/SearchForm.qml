@@ -12,13 +12,6 @@ Page {
 
     signal detailsRequested(var service)
 
-    header: Label {
-        color: Material.accent
-        text: qsTr("Search shodan.io")
-        font.pixelSize: Qt.application.font.pixelSize * 2
-        padding: 10
-    }
-
     ColumnLayout {
         id: mainContainer
         anchors.fill: parent

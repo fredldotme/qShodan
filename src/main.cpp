@@ -4,6 +4,7 @@
 
 #include "api/endpoints/shodanhostsearch.h"
 #include "api/endpoints/shodanip.h"
+#include "api/endpoints/shodantools.h"
 #include "api/endpoints/shodanrequest.h"
 #include "api/shodansettings.h"
 #include "api/shodan.h"
@@ -18,6 +19,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<ShodanRequest>("me.fredl.shodan", 1, 0, "ShodanRequest");
     qmlRegisterType<ShodanHostSearch>("me.fredl.shodan", 1, 0, "ShodanHostSearch");
     qmlRegisterType<ShodanIp>("me.fredl.shodan", 1, 0, "ShodanIp");
+    qmlRegisterType<ShodanTools>("me.fredl.shodan", 1, 0, "ShodanTools");
     qmlRegisterType<Shodan>("me.fredl.shodan", 1, 0, "Shodan");
     qmlRegisterType<FavoriteHosts>("me.fredl.shodan", 1, 0, "FavoriteHosts");
 

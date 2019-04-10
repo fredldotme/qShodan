@@ -25,7 +25,7 @@ void ShodanIp::ip(QString ipAddress)
     this->makeRequest(fullQueryUrl, QUrlQuery());
 }
 
-void ShodanIp::responseReceivedHandler()
+void ShodanIp::responseReceivedHandler(const uint httpStatus)
 {
     const QJsonDocument jsonDoc = QJsonDocument::fromJson(this->data());
     const QVariantMap foundServices = jsonDoc.object().toVariantMap();

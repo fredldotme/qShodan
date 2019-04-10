@@ -5,6 +5,8 @@ import me.fredl.shodan 1.0
 
 Page {
     property alias favoritesContainer : favoritesContainer
+    title: qsTr("Favorites")
+
     SwipeView {
         id: favoritesContainer
         anchors.fill: parent

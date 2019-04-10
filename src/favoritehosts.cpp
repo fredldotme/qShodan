@@ -37,12 +37,19 @@ void FavoriteHosts::readFromFile()
 
     QTextStream readStream(this->m_favFile);
     while (!readStream.atEnd()) {
-        const QString ip_str = readStream.readLine();
-        if (ip_str.isEmpty())
+        const QString line = readStream.readLine();
+        if (line.isEmpty())
             continue;
 
+        QString ip_str = line;
+        QString name;
+        if (line.contains(";")) {
+            ip_str = line.left(line.indexOf(';'));
+            name = line.mid(line.indexOf(';')+1);
+        }
         QVariantMap host;
         host.insert("ip_str", ip_str);
+        host.insert("name", name);
         this->m_favorites.push_back(host);
     }
 
@@ -69,12 +76,14 @@ void FavoriteHosts::writeToFile()
     for (QVariant value : this->m_favorites) {
         QVariantMap host = value.toMap();
         const QString ip_str = host.value("ip_str").toString();
+        const QString name = host.value("name").toString();
         if (ip_str.isEmpty())
             continue;
 
         qDebug() << ip_str;
-        fileStream << ip_str << endl;
+        fileStream << ip_str << ';' << name << endl;
     }
+    this->m_favFile->flush();
     this->m_favFile->close();
 }
 
@@ -83,7 +92,7 @@ QVariantList FavoriteHosts::favorites()
     return this->m_favorites;
 }
 
-void FavoriteHosts::add(const QString& ip)
+void FavoriteHosts::add(const QString& ip, const QString& name)
 {
     if (contains(ip)) {
         qInfo() << "IP address" << ip << "already in the favorites";
@@ -92,7 +101,28 @@ void FavoriteHosts::add(const QString& ip)
 
     QVariantMap host;
     host.insert("ip_str", ip);
+    host.insert("name", name);
     this->m_favorites.push_back(host);
+    writeToFile();
+    emit favoritesChanged();
+}
+
+void FavoriteHosts::rename(const QString& ip, const QString& name)
+{
+    QVariantList newFavorites;
+    for (QVariant host : this->m_favorites) {
+        QVariantMap hostMap = host.toMap();
+        if (!hostMap.contains("ip_str")) {
+            continue;
+        }
+
+        if (hostMap.value("ip_str") == ip) {
+            hostMap.insert("name", name);
+        }
+        newFavorites.push_back(hostMap);
+    }
+
+    this->m_favorites = newFavorites;
     writeToFile();
     emit favoritesChanged();
 }

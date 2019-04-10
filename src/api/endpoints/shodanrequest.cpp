@@ -2,6 +2,8 @@
 
 #include <QDebug>
 #include <QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 ShodanRequest::ShodanRequest(QObject* parent) : QObject(parent)
 {
@@ -27,7 +29,21 @@ void ShodanRequest::makeRequest(const QString& apiEndpoint, const QUrlQuery&urlQ
     });
     connect(this->m_reply, &QNetworkReply::finished,
             this, [=](){
+        if (!this->m_reply)
+            return;
+
         if (this->m_reply->error() != QNetworkReply::NoError) {
+            // First try to parse the response
+            const QJsonDocument jsonDoc = QJsonDocument::fromJson(this->data());
+            const QJsonObject responseObj = jsonDoc.object();
+            if (responseObj.contains("error")) {
+                emit error(static_cast<int>(this->m_reply->error()),
+                           responseObj.value("error").toString());
+                reset();
+                return;
+            }
+
+            // Fallback to Qt's error string
             emit error(static_cast<int>(this->m_reply->error()),
                        this->m_reply->errorString());
             reset();

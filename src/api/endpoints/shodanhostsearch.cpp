@@ -27,7 +27,7 @@ void ShodanHostSearch::search(QString query)
     this->makeRequest(SHODAN_HOST_SEARCH_ENDPOINT.arg(apiKey()), requestFields);
 }
 
-void ShodanHostSearch::responseReceivedHandler()
+void ShodanHostSearch::responseReceivedHandler(const uint httpStatus)
 {
     qDebug() << Q_FUNC_INFO;
     QVariantList foundHosts;

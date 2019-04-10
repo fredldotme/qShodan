@@ -18,7 +18,7 @@ public slots:
     void search(QString query);
 
 protected:
-    void responseReceivedHandler() Q_DECL_OVERRIDE;
+    void responseReceivedHandler(const uint httpStatus) Q_DECL_OVERRIDE;
 
 private:
     QVariantList m_hosts;

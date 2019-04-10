@@ -13,6 +13,17 @@ Page {
     readonly property int numPorts :
         hasServices ? shodanIpApi.services.data.length : 0
 
+    Label {
+        width: parent.width
+        height: parent.height
+        horizontalAlignment: Qt.AlignHCenter
+        verticalAlignment: Qt.AlignVCenter
+        text: qsTr("No services found")
+        font.pixelSize: Qt.application.font.pixelSize * 1.8
+        wrapMode: Label.WrapAtWordBoundaryOrAnywhere
+        visible: !hasServices
+    }
+
     Flickable {
         anchors.fill: parent
         contentHeight: mainColumn.height + mainColumn.anchors.margins

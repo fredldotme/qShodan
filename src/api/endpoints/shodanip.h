@@ -13,7 +13,7 @@ public:
     QVariantMap services();
 
 protected:
-    void responseReceivedHandler() Q_DECL_OVERRIDE;
+    void responseReceivedHandler(const uint httpStatus) Q_DECL_OVERRIDE;
 
 private:
     QVariantMap m_services;

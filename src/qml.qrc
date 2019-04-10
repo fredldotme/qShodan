@@ -14,5 +14,6 @@
         <file>qml/details/HostDetails.qml</file>
         <file>qml/details/ServiceDetails.qml</file>
         <file>qml/details/CveDetails.qml</file>
+        <file>qml/SelfCheckContainer.qml</file>
     </qresource>
 </RCC>

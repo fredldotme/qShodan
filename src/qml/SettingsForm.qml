@@ -7,17 +7,11 @@ import me.fredl.shodan 1.0
 Page {
     width: 400
     height: 400
+    title: qsTr("Settings")
 
     signal clearApiKey()
 
     property ShodanSettings settings : null
-
-    header: Label {
-        color: Material.accent
-        text: qsTr("Settings")
-        font.pixelSize: Qt.application.font.pixelSize * 2
-        padding: 10
-    }
 
     ColumnLayout {
         anchors.fill: parent

@@ -1,6 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
+import QtQuick.Layouts 1.0
 import me.fredl.shodan 1.0
 
 ApplicationWindow {
@@ -49,6 +50,15 @@ ApplicationWindow {
             dialog.open()
         }
     }
+    ShodanTools {
+        id: shodanTools
+        apiKey: shodanSettings.apiKey
+        onError: {
+            dialog.text = errorString
+            dialog.open()
+        }
+    }
+
     FavoriteHosts {
         id: favorites
     }
@@ -58,12 +68,14 @@ ApplicationWindow {
         title: qsTr("An error occured")
         property alias text : textItem.text
         standardButtons: Dialog.Ok
+        modal: true
         x: (parent.width - width) / 2
         y: (parent.height - height) / 2
 
         Label {
             anchors.fill: parent
             id: textItem
+            width: parent.width
             wrapMode: Label.WrapAtWordBoundaryOrAnywhere
         }
     }
@@ -81,16 +93,101 @@ ApplicationWindow {
         }
     }
 
+    header: ToolBar {
+        id: toolBar
+        width: parent.width
+        background: Rectangle {
+            color: "transparent"
+        }
+
+        readonly property bool enableMainToolBar :
+            searchContainerView.searchContainer.currentIndex < 1 &&
+            selfCheckContainerView.selfCheckContainerContainer.currentIndex < 1 &&
+            favoritesContainerView.favoritesContainer.currentIndex < 1
+
+        visible: shodanSettings.apiKey !== ""
+        enabled: enableMainToolBar
+
+        RowLayout {
+            anchors.fill: parent
+            Label {
+                color: Material.accent
+                text: swipeView.currentItem.title
+                font.pixelSize: Qt.application.font.pixelSize * 2
+                padding: 10
+                Layout.fillWidth: true
+            }
+
+            ToolButton {
+                text: "☰"
+                visible: toolBar.enableMainToolBar
+                onClicked: {
+                    menu.open()
+                }
+            }
+        }
+        Menu {
+            id: menu
+            x: parent.width - width
+            y: toolBar.height
+
+            property color highlightColor : Material.accent
+
+            MenuItem {
+                text: "Search"
+                onClicked: swipeView.currentIndex = 0
+                background: Rectangle {
+                    color: menu.highlightColor
+                    visible: swipeView.currentIndex == 0
+                }
+            }
+            MenuItem {
+                text: "Self-check"
+                onClicked: swipeView.currentIndex = 1
+                background: Rectangle {
+                    color: menu.highlightColor
+                    visible: swipeView.currentIndex == 1
+                }
+            }
+            MenuItem {
+                text: "Favorites"
+                onClicked: swipeView.currentIndex = 2
+                background: Rectangle {
+                    color: menu.highlightColor
+                    visible: swipeView.currentIndex == 2
+                }
+            }
+            MenuItem {
+                text: "Settings"
+                onClicked: swipeView.currentIndex = 3
+                background: Rectangle {
+                    color: menu.highlightColor
+                    visible: swipeView.currentIndex == 3
+                }
+            }
+            MenuItem {
+                text: "About"
+                onClicked: swipeView.currentIndex = 4
+                background: Rectangle {
+                    color: menu.highlightColor
+                    visible: swipeView.currentIndex == 4
+                }
+            }
+        }
+    }
+
     // SwipeView in case API key exists
     SwipeView {
         id: swipeView
         anchors.fill: parent
         visible: hasApiKey
-        interactive: tabBar.enabled
-        //currentIndex: tabBar.currentIndex
+        interactive: toolBar.enabled
 
         SearchContainerView {
             id: searchContainerView
+        }
+        SelfCheckContainer {
+            id: selfCheckContainerView
         }
         FavoritesContainer {
             id: favoritesContainerView
@@ -102,41 +199,5 @@ ApplicationWindow {
             }
         }
         AboutForm {}
-    }
-
-    footer: TabBar {
-        readonly property bool enableMainTabBar :
-            searchContainerView.searchContainer.currentIndex < 1 &&
-            favoritesContainerView.favoritesContainer.currentIndex < 1
-
-        id: tabBar
-        visible: shodanSettings.apiKey !== "" && enableMainTabBar
-        enabled: enableMainTabBar
-        currentIndex: swipeView.currentIndex
-
-        // Looking glass
-        TabButton {
-            text: "Search"
-            //text: String.fromCharCode(0xF09F8C90)
-            onClicked: swipeView.currentIndex = 0
-        }
-        // Favorites
-        TabButton {
-            text: "Favorites"
-            //text: String.fromCharCode(0x2605)
-            onClicked: swipeView.currentIndex = 1
-        }
-        // Settings
-        TabButton {
-            text: "Settings"
-            //text: String.fromCharCode(0x2699)
-            onClicked: swipeView.currentIndex = 2
-        }
-        // About
-        TabButton {
-            text: "About"
-            //text: String.fromCharCode(0x2753)
-            onClicked: swipeView.currentIndex = 3
-        }
     }
 }

@@ -7,13 +7,6 @@ import me.fredl.shodan 1.0
 Page {
     signal hostDetailsRequest(string ip)
 
-    header: Label {
-        text: qsTr("Favorites")
-        color: Material.accent
-        font.pixelSize: Qt.application.font.pixelSize * 2
-        padding: 10
-    }
-
     Label {
         width: parent.width
         anchors.centerIn: parent
@@ -23,19 +16,77 @@ Page {
         text: qsTr("No favorites saved yet")
     }
 
+    Dialog {
+        id: renameDialog
+        title: qsTr("Rename favorite:")
+        standardButtons: Dialog.Ok
+        modal: true
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
+        width: parent.width / 2
+        onVisibleChanged: inputArea.forceActiveFocus()
+        readonly property alias inputArea : inputArea
+
+        TextInput {
+            id: inputArea
+            anchors.fill: parent
+            width: parent.width
+            wrapMode: Label.WrapAtWordBoundaryOrAnywhere
+        }
+        onAccepted: {
+            favorites.rename(listView.selectedIp, inputArea.text)
+            inputArea.text = ""
+        }
+    }
+
     ListView {
+        id: listView
         width: parent.width
         height: parent.height - 64
         clip: true
         ScrollBar.vertical: ScrollBar {}
         spacing: 10
 
+        property string selectedIp : ""
+
         model: favorites.favorites
+
         delegate: MouseArea {
             id: entryMouseArea
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
             width: parent.width
             height: childrenRect.height
-            onClicked: hostDetailsRequest(favorites.favorites[index].ip_str)
+
+            Menu {
+                id: contextMenu
+                MenuItem {
+                    text: qsTr("Rename")
+                    onClicked: {
+                        renameDialog.inputArea.text = favorites.favorites[index].name
+                        renameDialog.open()
+                    }
+                }
+            }
+
+            function showContextMenu(x, y) {
+                listView.selectedIp = favorites.favorites[index].ip_str
+                contextMenu.parent = entryMouseArea
+                contextMenu.x = x
+                contextMenu.y = y
+                contextMenu.open()
+            }
+
+            onClicked: {
+                if (mouse.button === Qt.RightButton) {
+                    showContextMenu(mouseX, mouseY)
+                    return;
+                }
+
+                hostDetailsRequest(favorites.favorites[index].ip_str)
+            }
+            onPressAndHold: {
+                showContextMenu(mouseX, mouseY)
+            }
 
             Rectangle {
                 width: parent.width
@@ -45,7 +96,14 @@ Page {
                            "transparent"
                 Label {
                     width: parent.width
-                    text: favorites.favorites[index].ip_str
+                    text: {
+                        if (favorites.favorites[index].name === "") {
+                            return favorites.favorites[index].ip_str
+                        } else {
+                            return favorites.favorites[index].name
+                                    + " (%2)".arg(favorites.favorites[index].ip_str)
+                        }
+                    }
                     font.pixelSize: Qt.application.font.pixelSize * 1.8
                 }
             }

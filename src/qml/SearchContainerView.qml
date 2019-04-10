@@ -5,6 +5,8 @@ import me.fredl.shodan 1.0
 
 Page {
     property alias searchContainer : searchContainer
+    title: qsTr("Search Shodan.io")
+
     SwipeView {
         id: searchContainer
         anchors.fill: parent

@@ -13,7 +13,9 @@ Page {
     property var host : null
 
     property bool isInFavorites : false
-    readonly property bool fetchingDetails : serviceDetailsTimer.running || shodanIpApi.busy
+    readonly property bool fetchingDetails : host === null ||
+                                             serviceDetailsTimer.running ||
+                                             shodanIpApi.busy
 
     readonly property string starFull : "\u2605"
     readonly property string starEmpty : "\u2606"
@@ -45,7 +47,7 @@ Page {
     onBackRequested: {
         serviceDetailsTimer.stop()
         shodanIpApi.reset()
-        tabBar.currentIndex = 0
+        detailSwipeView.currentIndex = 0
     }
 
     header: ToolBar {
@@ -100,7 +102,6 @@ Page {
     SwipeView {
         id: detailSwipeView
         anchors.fill: parent
-        currentIndex: tabBar.currentIndex
 
         // Host details
         HostDetails {}
@@ -118,14 +119,18 @@ Page {
 
     footer: TabBar {
         id: tabBar
+        currentIndex: detailSwipeView.currentIndex
         TabButton {
             text: qsTr("Details")
+            onClicked: detailSwipeView.currentIndex = 0
         }
         TabButton {
             text: qsTr("Services (%1)").arg(serviceDetails.numPorts)
+            onClicked: detailSwipeView.currentIndex = 1
         }
         TabButton {
-            text: qsTr("CVE (%1)").arg(cveDetails.numVulns)
+            text: qsTr("CVEs (%1)").arg(cveDetails.numVulns)
+            onClicked: detailSwipeView.currentIndex = 2
         }
     }
 

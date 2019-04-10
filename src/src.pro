@@ -20,7 +20,8 @@ SOURCES += \
     api/endpoints/shodanip.cpp \
     api/endpoints/shodanhostsearch.cpp \
     favoritehosts.cpp \
-    api/shodansettings.cpp
+    api/shodansettings.cpp \
+    api/endpoints/shodantools.cpp
 
 HEADERS += \
     api/shodan.h \
@@ -28,7 +29,8 @@ HEADERS += \
     api/endpoints/shodanip.h \
     api/endpoints/shodanhostsearch.h \
     favoritehosts.h \
-    api/shodansettings.h
+    api/shodansettings.h \
+    api/endpoints/shodantools.h
 
 RESOURCES += qml.qrc \
     img.qrc
