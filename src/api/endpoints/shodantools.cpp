@@ -18,7 +18,7 @@ QString ShodanTools::ipAddress()
 
 void ShodanTools::ip()
 {
-    this->makeRequest(SHODAN_TOOLS_IP_ENDPOINT.arg(apiKey()), QUrlQuery());
+    this->getRequest(SHODAN_TOOLS_IP_ENDPOINT.arg(apiKey()), QUrlQuery());
 }
 
 void ShodanTools::responseReceivedHandler(const uint httpStatus)

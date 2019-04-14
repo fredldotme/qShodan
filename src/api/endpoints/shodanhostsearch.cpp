@@ -24,7 +24,7 @@ void ShodanHostSearch::search(QString query)
 {
     QUrlQuery requestFields;
     requestFields.addQueryItem("query", query);
-    this->makeRequest(SHODAN_HOST_SEARCH_ENDPOINT.arg(apiKey()), requestFields);
+    this->getRequest(SHODAN_HOST_SEARCH_ENDPOINT.arg(apiKey()), requestFields);
 }
 
 void ShodanHostSearch::responseReceivedHandler(const uint httpStatus)

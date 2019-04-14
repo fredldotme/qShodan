@@ -15,8 +15,6 @@ public:
 
     explicit ShodanRequest(QObject* parent = nullptr);
 
-    void makeRequest(const QString& apiEndpoint, const QUrlQuery& urlQuery);
-
     QString apiKey();
     void setApiKey(const QString& key);
     bool busy();
@@ -26,6 +24,11 @@ public slots:
     void reset();
 
 protected:
+    void getRequest(const QString& apiEndpoint,
+                        const QUrlQuery& urlQuery);
+    void putRequest(const QString& apiEndpoint,
+                        const QUrlQuery& urlQuery,
+                        const QByteArray& requestData);
     QNetworkAccessManager* accessManager();
     QByteArray& data();
     virtual void responseReceivedHandler(const uint httpStatus = 0) {
@@ -33,6 +36,7 @@ protected:
     }
 
 private:
+    void prepareNetworkReply(QNetworkReply* reply);
     void readReadyData();
 
     QByteArray m_data;
