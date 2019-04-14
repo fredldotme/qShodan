@@ -24,6 +24,14 @@ Page {
                 settings.darkMode = checked
             }
         }
+        CheckBox {
+            Layout.alignment: Qt.AlignHCenter
+            text: qsTr("Explore features")
+            checked: settings.explore
+            onCheckedChanged: {
+                settings.explore = checked
+            }
+        }
 
         Button {
             Layout.alignment: Qt.AlignHCenter
