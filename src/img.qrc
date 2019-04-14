@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file alias="qshodan.png">assets/qshodan.png</file>
+        <file alias="hamburgermenu.svg">assets/hamburgermenu.svg</file>
     </qresource>
 </RCC>

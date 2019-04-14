@@ -2,6 +2,7 @@ import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts 1.0
+import QtGraphicalEffects 1.0
 import me.fredl.shodan 1.0
 
 ApplicationWindow {
@@ -31,6 +32,18 @@ ApplicationWindow {
     readonly property bool hasApiKey :
         shodanSettings.apiKey !== ""
 
+    function showError(errorString) {
+        dialog.title = qsTr("An error occured")
+        dialog.text = errorString
+        dialog.open()
+    }
+
+    function showWarning(warningString) {
+        dialog.title = qsTr("Warning")
+        dialog.text = warningString
+        dialog.open()
+    }
+
     ShodanSettings {
         id: shodanSettings
     }
@@ -38,59 +51,26 @@ ApplicationWindow {
         id: shodanHostApi
         apiKey: shodanSettings.apiKey
         onError: {
-            dialog.text = errorString
-            dialog.open()
+            showError(errorString)
         }
     }
     ShodanIp {
         id: shodanIpApi
         apiKey: shodanSettings.apiKey
         onError: {
-            dialog.text = errorString
-            dialog.open()
+            showError(errorString)
         }
     }
     ShodanTools {
         id: shodanTools
         apiKey: shodanSettings.apiKey
         onError: {
-            dialog.text = errorString
-            dialog.open()
+            showError(errorString)
         }
     }
 
     FavoriteHosts {
         id: favorites
-    }
-
-    Dialog {
-        id: dialog
-        title: qsTr("An error occured")
-        property alias text : textItem.text
-        standardButtons: Dialog.Ok
-        modal: true
-        x: (parent.width - width) / 2
-        y: (parent.height - height) / 2
-
-        Label {
-            anchors.fill: parent
-            id: textItem
-            width: parent.width
-            wrapMode: Label.WrapAtWordBoundaryOrAnywhere
-        }
-    }
-
-    // Main views
-    // "Login" screen using QRCode key reader
-    LoginScreen {
-        id: loginPage
-        visible: !hasApiKey
-        enabled: visible
-        anchors.fill: parent
-        onKeyFound: {
-            shodanSettings.apiKey = key
-            swipeView.currentIndex = 0
-        }
     }
 
     header: ToolBar {
@@ -119,7 +99,28 @@ ApplicationWindow {
             }
 
             ToolButton {
-                text: "☰"
+                id: hamburgerButton
+                contentItem: Item {
+                    Image {
+                        id: _hamburgerIcon
+                        source: "qrc:/hamburgermenu.svg"
+                        width: hamburgerButton.width / 2
+                        height: hamburgerButton.height / 2
+                        sourceSize.width: width
+                        sourceSize.height: height
+                        anchors.fill: parent
+                        horizontalAlignment: Qt.AlignHCenter
+                        verticalAlignment: Qt.AlignVCenter
+                    }
+                    ColorOverlay {
+                        anchors.fill: parent
+                        source: _hamburgerIcon
+                        color: shodanSettings.darkMode ?
+                                   "#ffffffff" :
+                                   "#ff000000"
+                    }
+                }
+
                 visible: toolBar.enableMainToolBar
                 onClicked: {
                     menu.open()
@@ -176,28 +177,72 @@ ApplicationWindow {
         }
     }
 
-    // SwipeView in case API key exists
-    SwipeView {
-        id: swipeView
+    Item {
         anchors.fill: parent
-        visible: hasApiKey
-        interactive: toolBar.enabled
 
-        SearchContainerView {
-            id: searchContainerView
-        }
-        SelfCheckContainer {
-            id: selfCheckContainerView
-        }
-        FavoritesContainer {
-            id: favoritesContainerView
-        }
-        SettingsForm {
-            settings: shodanSettings
-            onClearApiKey: {
-                shodanSettings.apiKey = ""
+        Dialog {
+            id: dialog
+            title: qsTr("An error occured")
+            property alias text : textItem.text
+            standardButtons: Dialog.Ok
+            modal: true
+            x: (parent.width - width) / 2
+            y: (parent.height - height) / 2
+            width: Math.min(parent.width * 0.75, implicitWidth)
+
+            Label {
+                anchors.fill: parent
+                id: textItem
+                width: parent.width
+                wrapMode: Label.WrapAtWordBoundaryOrAnywhere
             }
         }
-        AboutForm {}
+
+        // Main views
+        // "Login" screen using QRCode key reader
+        LoginScreen {
+            id: loginPage
+            visible: !hasApiKey
+            enabled: visible
+            anchors.fill: parent
+            onKeyFound: {
+                shodanSettings.apiKey = key
+                swipeView.currentIndex = 0
+            }
+        }
+
+        // SwipeView in case API key exists
+        SwipeView {
+            id: swipeView
+            anchors.fill: parent
+            visible: hasApiKey
+            interactive: toolBar.enabled
+
+            SearchContainerView {
+                id: searchContainerView
+            }
+            SelfCheckContainer {
+                id: selfCheckContainerView
+            }
+            FavoritesContainer {
+                id: favoritesContainerView
+            }
+            SettingsForm {
+                settings: shodanSettings
+                onClearApiKey: {
+                    shodanSettings.apiKey = ""
+                }
+            }
+            AboutForm {}
+        }
+
+        PageIndicator {
+            visible: hasApiKey
+            currentIndex: swipeView.currentIndex
+            count: swipeView.count
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 16
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
     }
 }
