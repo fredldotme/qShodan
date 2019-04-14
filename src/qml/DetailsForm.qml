@@ -43,6 +43,10 @@ Page {
         onTriggered: shodanIpApi.ip(host.ip_str)
     }
 
+    Keys.onBackPressed: {
+        backRequested()
+    }
+
     signal backRequested()
     onBackRequested: {
         serviceDetailsTimer.stop()
@@ -90,7 +94,7 @@ Page {
                 }
             }
             ToolButton {
-                text: qsTr("Open")
+                text: qsTr("View")
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
                 onClicked: {
                     Qt.openUrlExternally("https://www.shodan.io/host/" + host.ip_str)

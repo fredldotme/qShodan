@@ -36,7 +36,7 @@ Page {
                 anchors.centerIn: parent
                 Label {
                     text: qsTr("Self-check allows you to do a checkup of your edge network "+
-                               "devices via your current public facing IP address.")
+                               "devices via your current public-facing IP address.")
                     width: selfCheckContainerContainer.width
                     font.pixelSize: Qt.application.font.pixelSize * 1.5
                     wrapMode: Label.WrapAtWordBoundaryOrAnywhere
@@ -56,6 +56,7 @@ Page {
         DetailsForm {
             id: detailsForm
             onBackRequested: {
+                ipQueryDelayTimer.stop()
                 selfCheckContainerContainer.currentIndex = 0
                 detailsForm.setHost(null)
             }
