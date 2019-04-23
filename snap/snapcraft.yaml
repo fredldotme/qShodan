@@ -39,6 +39,7 @@ parts:
       - libqt5xmlpatterns5-dev
       - qtmultimedia5-dev
       - libqt5webkit5-dev
+      - libqt5svg5-dev
       - qtbase5-dev
       - qml-module-qtquick2
       - qml-module-qtquick-window2
