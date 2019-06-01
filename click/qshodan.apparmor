@@ -2,7 +2,7 @@
     "policy_groups": [
         "camera",
         "connectivity",
-        "networking",
+        "networking"
     ],
     "policy_version": 16.04
 }
