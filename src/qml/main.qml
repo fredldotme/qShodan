@@ -237,7 +237,7 @@ ApplicationWindow {
         }
 
         PageIndicator {
-            visible: hasApiKey
+            visible: hasApiKey && toolBar.enableMainToolBar
             currentIndex: swipeView.currentIndex
             count: swipeView.count
             anchors.bottom: parent.bottom
