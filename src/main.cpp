@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QFont>
 #include <QZXing.h>
 
 #include "api/endpoints/shodanhostsearch.h"
@@ -24,6 +25,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<FavoriteHosts>("me.fredl.shodan", 1, 0, "FavoriteHosts");
 
     QGuiApplication app(argc, argv);
+    QFont newFont = app.font();
+    newFont.setPixelSize(12);
+    app.setFont(newFont);
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
