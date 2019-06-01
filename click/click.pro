@@ -30,7 +30,7 @@ runsh.files += $$PWD/run.sh
 runsh.path = /
 
 # App icon asset
-appicon.files += $$PWD/../src/assets/qshodan.png
+appicon.files += $$PWD/qshodan.png
 appicon.path = /
 
 # AppArmor profile
