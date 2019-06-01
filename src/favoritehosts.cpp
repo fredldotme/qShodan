@@ -10,7 +10,11 @@ FavoriteHosts::FavoriteHosts(QObject *parent) : QObject(parent)
         qDebug() << this->m_favorites;
     });
     const QString fileDir =
+#ifdef UBUNTU_CLICK
+            QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)
+#else
             QStandardPaths::writableLocation(QStandardPaths::DataLocation)
+#endif
             + QDir::separator();
     {
         QDir favoritesDir(fileDir);

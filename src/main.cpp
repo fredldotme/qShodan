@@ -25,6 +25,11 @@ int main(int argc, char *argv[])
     qmlRegisterType<FavoriteHosts>("me.fredl.shodan", 1, 0, "FavoriteHosts");
 
     QGuiApplication app(argc, argv);
+
+#ifdef UBUNTU_CLICK
+    app.setOrganizationName(QStringLiteral("me.fredl.qshodan"));
+#endif
+
     QFont newFont = app.font();
     newFont.setPixelSize(12);
     app.setFont(newFont);
