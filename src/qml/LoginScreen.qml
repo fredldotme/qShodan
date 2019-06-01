@@ -31,6 +31,18 @@ Page {
         keyFound(key)
     }
 
+    Timer {
+        id: decodeTriggerTimer
+        onTriggered: {
+            videoOutput.grabToImage(function(result) {
+                qrDecoder.decodeImage(result.image)
+            })
+        }
+        repeat: true
+        running: visible
+        interval: 100
+    }
+
     signal keyFound(string key);
 
     Flickable {
@@ -45,16 +57,11 @@ Page {
             }
         }
 
-        QZXingFilter {
-            id: zxingFilter
-            active: pageRoot.visible
-            decoder {
-                id: qrcDecoder
-                enabledDecoders: QZXing.DecoderFormat_QR_CODE
-                onTagFound: {
-                    console.log(tag);
-                    assertFoundKey(tag);
-                }
+        QZXing {
+            id: qrDecoder
+            enabledDecoders: QZXing.DecoderFormat_QR_CODE
+            onTagFound: {
+                assertFoundKey(tag);
             }
         }
 
@@ -68,7 +75,6 @@ Page {
                 Layout.maximumWidth: height
                 Layout.alignment: Qt.AlignCenter
                 source: camera
-                filters: [ zxingFilter ]
                 fillMode: VideoOutput.PreserveAspectFit
                 rotation : {
                     if (camera.orientation === 0)
