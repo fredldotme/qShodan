@@ -11,11 +11,12 @@ Page {
     property ShodanIp shodanIp : null
 
     signal detailsRequested(var service)
-    Component.onCompleted: {
+    onVisibleChanged: {
         /*if (shodanSettings.explore)
             return;*/
 
-        searchField.forceActiveFocus()
+        if (visible)
+            searchField.forceActiveFocus()
     }
 
     ColumnLayout {
