@@ -6,22 +6,14 @@ import QZXing 2.3
 
 Page {
     id: pageRoot
-    width: 400
-    height: 600
 
     onVisibleChanged: {
-        if (!visible)
+        if (!visible) {
             camera.stop()
-        else
+        } else {
             camera.start()
-    }
-
-    header: Label {
-        text: qsTr("Scan your shodan.io API key...")
-        width: parent.width
-        wrapMode: Label.WrapAtWordBoundaryOrAnywhere
-        font.pixelSize: Qt.application.font.pixelSize * 1.5
-        padding: 10
+            keyField.forceActiveFocus()
+        }
     }
 
     function assertFoundKey(key) {
@@ -67,36 +59,10 @@ Page {
 
         ColumnLayout {
             anchors.fill: parent
-            spacing: 64
-
-            VideoOutput {
-                id: videoOutput
-                Layout.maximumHeight: parent.height / 2
-                Layout.maximumWidth: height
-                Layout.alignment: Qt.AlignCenter
-                source: camera
-                fillMode: VideoOutput.PreserveAspectFit
-                rotation : {
-                    if (camera.orientation === 0)
-                        return 0
-                    else
-                        return 90
-                }
-                transformOrigin: Item.Center
-                enabled: pageRoot.visible
-                visible: enabled
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        camera.focus.customFocusPoint = Qt.point(mouse.x / width,  mouse.y / height);
-                        camera.focus.focusMode = CameraFocus.FocusMacro;
-                        camera.focus.focusPointMode = CameraFocus.FocusPointCustom;
-                    }
-                }
-            }
+            spacing: 16
 
             Label {
-                text: qsTr("...or enter the key manually.")
+                text: qsTr("Enter your Shodan.io API key...")
                 width: parent.width
                 wrapMode: Label.WrapAtWordBoundaryOrAnywhere
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
@@ -121,6 +87,40 @@ Page {
                     width: (parent.width/3)
                     enabled: keyField.text.length == 32
                     onClicked: assertFoundKey(keyField.text)
+                }
+            }
+
+            Label {
+                text: qsTr("... or scan it")
+                width: parent.width
+                wrapMode: Label.WrapAtWordBoundaryOrAnywhere
+                font.pixelSize: Qt.application.font.pixelSize * 1.5
+                padding: 10
+            }
+
+            VideoOutput {
+                id: videoOutput
+                Layout.maximumHeight: parent.height / 2
+                Layout.maximumWidth: height
+                Layout.alignment: Qt.AlignCenter
+                source: camera
+                fillMode: VideoOutput.PreserveAspectFit
+                rotation : {
+                    if (camera.orientation === 0)
+                        return 0
+                    else
+                        return 90
+                }
+                transformOrigin: Item.Center
+                enabled: pageRoot.visible
+                visible: enabled
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        camera.focus.customFocusPoint = Qt.point(mouse.x / width,  mouse.y / height);
+                        camera.focus.focusMode = CameraFocus.FocusMacro;
+                        camera.focus.focusPointMode = CameraFocus.FocusPointCustom;
+                    }
                 }
             }
         }
