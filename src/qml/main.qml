@@ -143,7 +143,7 @@ ApplicationWindow {
                 }
             }
             MenuItem {
-                text: "Self-check"
+                text: "Favorites"
                 onClicked: swipeView.currentIndex = 1
                 background: Rectangle {
                     color: menu.highlightColor
@@ -151,7 +151,7 @@ ApplicationWindow {
                 }
             }
             MenuItem {
-                text: "Favorites"
+                text: "Self-check"
                 onClicked: swipeView.currentIndex = 2
                 background: Rectangle {
                     color: menu.highlightColor
@@ -222,11 +222,11 @@ ApplicationWindow {
             SearchContainerView {
                 id: searchContainerView
             }
-            SelfCheckContainer {
-                id: selfCheckContainerView
-            }
             FavoritesContainer {
                 id: favoritesContainerView
+            }
+            SelfCheckContainer {
+                id: selfCheckContainerView
             }
             SettingsForm {
                 settings: shodanSettings
