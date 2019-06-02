@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include <QFont>
 #include <QZXing.h>
 
@@ -30,6 +31,11 @@ int main(int argc, char *argv[])
     app.setOrganizationName(QStringLiteral("me.fredl.qshodan"));
 #endif
 
+    uint GRID_UNIT_PX = qgetenv("GRID_UNIT_PX").toUInt();
+    if (GRID_UNIT_PX == 0) {
+        GRID_UNIT_PX = 8;
+    }
+
     QFont newFont = app.font();
     newFont.setPixelSize(12);
     app.setFont(newFont);
@@ -39,5 +45,6 @@ int main(int argc, char *argv[])
     if (engine.rootObjects().isEmpty())
         return -1;
 
+    engine.rootContext()->setContextProperty("GRID_UNIT_PX", GRID_UNIT_PX);
     return app.exec();
 }

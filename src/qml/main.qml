@@ -179,6 +179,7 @@ ApplicationWindow {
 
     Item {
         anchors.fill: parent
+        anchors.bottomMargin: Qt.inputMethod.visible ? Qt.inputMethod.keyboardRectangle.height / (GRID_UNIT_PX / 8) : 0
 
         Dialog {
             id: dialog
